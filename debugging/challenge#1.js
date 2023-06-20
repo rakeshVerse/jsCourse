@@ -5,7 +5,7 @@
 const printForecast = (array) => {
   let forecast = `...`;
   for (let i = 0; i < array.length; i++) {
-    forecast = `${forecast} ${array[i]}C in ${i + 1} Days ...`;
+    forecast += ` ${array[i]}C in ${i + 1} Days ...`;
   }
 
   return forecast;
