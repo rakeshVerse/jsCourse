@@ -1,0 +1,32 @@
+body {
+  background-color: rgb(43, 42, 51);
+  color: white;
+  width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  height: 44px;
+  width: 120px;
+  font-size: 15px;
+}
+
+input {
+  font-size: x-large;
+}
+
+#guess {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+#div-score {
+  text-align: center;
+  padding-top: 20px;
+}
