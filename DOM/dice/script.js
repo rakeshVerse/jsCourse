@@ -1,58 +1,70 @@
-"use strict;";
-
-// initial values
-let playerOneHold = 0;
-let playerTwoHold = 0;
-let playerCurrentScore = 0;
+"use strict";
 
 // dom selection
-const playerOneSection = document.querySelector(".player-1");
-const playerTwoSection = document.querySelector(".player-2");
-const playerOneHoldTxt = document.querySelector(".player-1 .hold");
-const playerTwoHoldTxt = document.querySelector(".player-2 .hold");
+const playerOneHoldTxt = document.querySelector("#player-0 .hold");
+const playerTwoHoldTxt = document.querySelector("#player-1 .hold");
 const playerOneCurrentScore = document.querySelector(
-  ".player-1 .current-score"
+  "#player-0 .current-score"
 );
 const playerTwoCurrentScore = document.querySelector(
-  ".player-2 .current-score"
+  "#player-1 .current-score"
 );
 const btnRoll = document.querySelector(".btn-roll");
 const btnHold = document.querySelector(".btn-hold");
 const diceImg = document.querySelector("img");
 
-// assign initial values to dom
-playerOneHoldTxt.textContent = playerOneHold;
-playerTwoHoldTxt.textContent = playerTwoHold;
-playerOneCurrentScore.textContent = playerCurrentScore;
-playerTwoCurrentScore.textContent = playerCurrentScore;
+let holdScore, currentScore, playing, activePlayer;
 
-// by default player-1 is active. 1 - player-1, 2 - player-2
-let activePlayer = 1;
+// initialize values
+const init = () => {
+  // initial values
+  holdScore = [0, 0];
+  currentScore = 0;
+  playing = true; // game state
+  activePlayer = 0; // by default player-1 is active. 0 for player-1, 1 for player-2
+
+  // assign initial values to dom
+  playerOneHoldTxt.textContent = 0;
+  playerTwoHoldTxt.textContent = 0;
+  playerOneCurrentScore.textContent = 0;
+  playerTwoCurrentScore.textContent = 0;
+
+  // remove dice
+  diceImg.src = "";
+
+  // remove victory class
+  document.getElementById(`player-0`).classList.remove("victory");
+  document.getElementById(`player-1`).classList.remove("victory");
+
+  // set player-1 as active initially
+  document.querySelector("#player-0").classList.add("active-player");
+  document.querySelector("#player-1").classList.remove("active-player");
+};
+
+init();
 
 // roll btn click event
 btnRoll.addEventListener("click", () => {
-  // roll dice = generate a randowm number between 1-6
-  const dice = Math.floor(Math.random() * 6) + 1;
-  console.log(dice);
+  if (playing) {
+    // roll dice = generate a randowm number between 1-6
+    const dice = Math.floor(Math.random() * 6) + 1;
+    // console.log(dice);
 
-  // dispaly dice img as per dice number
-  diceImg.setAttribute("src", `/images/${dice}.png`);
+    // dispaly dice img as per dice number
+    diceImg.setAttribute("src", `/images/${dice}.png`);
 
-  /**
-   * if dice number is 1:
-   *  - switch player
-   * else
-   *  - update current score of the active player
-   */
-  if (dice === 1) {
-    switchPlayer(); // switch player
-  } else {
-    playerCurrentScore += dice; // update active palyer's current score with dice number
+    //  if dice = 1- switch player else update current score of the active player
+    if (dice === 1) {
+      switchPlayer();
+    } else {
+      // update active palyer's current score with dice number
+      currentScore += dice;
 
-    // display updated current score of the active player
-    activePlayer === 1
-      ? (playerOneCurrentScore.textContent = playerCurrentScore)
-      : (playerTwoCurrentScore.textContent = playerCurrentScore);
+      // display updated current score of the active player
+      document.querySelector(
+        `#player-${activePlayer} .current-score`
+      ).textContent = currentScore;
+    }
   }
 });
 
@@ -61,75 +73,46 @@ btnHold.addEventListener("click", () => {
   /**
    * update hold variable of active player
    * display updated hold value
-   * if hold >= 100
-   *  - active player won
-   * else
-   *  - switchPlayer
+   * if hold >= 100 - active player won
+   * else - switchPlayer
    */
-  updateHoldScore();
-  const won = checkWinner();
-  if (!won) switchPlayer();
-});
+  if (playing) {
+    // update hold score of active player
+    holdScore[activePlayer] += currentScore;
+    document.querySelector(`#player-${activePlayer} .hold`).textContent =
+      holdScore[activePlayer];
 
-// reset
-document.querySelector(".btn-newgame").addEventListener("click", () => {
-  location.reload();
+    if (holdScore[activePlayer] >= 100) {
+      // update game state
+      playing = false;
+      // if player won - show green color section to indicate victory
+      document
+        .getElementById(`player-${activePlayer}`)
+        .classList.add("victory");
+      // remove dice
+      diceImg.src = "";
+    } else {
+      switchPlayer();
+    }
+  }
 });
 
 // switch player
 const switchPlayer = () => {
-  playerCurrentScore = 0; // set current score to 0
+  // set current score to 0
+  currentScore = 0;
 
-  // display current score for the active player & switch state
-  if (activePlayer === 1) {
-    playerOneCurrentScore.textContent = playerCurrentScore; // display score
-    playerOneSection.classList.remove("active-player"); // remove active class from player-1
-    playerTwoSection.classList.add("active-player"); // add active class to player-2
-    activePlayer = 2; // set player-2 as active player
-  } else {
-    playerTwoCurrentScore.textContent = playerCurrentScore; // display score
-    playerTwoSection.classList.remove("active-player"); // remove active class from player-2
-    playerOneSection.classList.add("active-player"); // add active class to player-1
-    activePlayer = 1; // set player-1 as active player
-  }
+  // display score
+  document.querySelector(`#player-${activePlayer} .current-score`).textContent =
+    currentScore;
+
+  // toggle active class to indicate switch player
+  document.querySelector("#player-0").classList.toggle("active-player");
+  document.querySelector("#player-1").classList.toggle("active-player");
+
+  // switch player
+  activePlayer = activePlayer ? 0 : 1;
 };
 
-// update hold score of active player
-const updateHoldScore = () => {
-  if (activePlayer === 1) {
-    playerOneHold += playerCurrentScore;
-    playerOneHoldTxt.textContent = playerOneHold;
-  } else {
-    playerTwoHold += playerCurrentScore;
-    playerTwoHoldTxt.textContent = playerTwoHold;
-  }
-};
-
-// check winner after every hold
-const checkWinner = () => {
-  /**
-   * if player won
-   *  - show green color section to indicate victory
-   *  - disable roll and hold btn
-   * else
-   *  - switch player
-   */
-
-  let won = false;
-  if (activePlayer === 1 && playerOneHold >= 100) {
-    playerOneSection.classList.add("victory");
-    disableRollAndHoldBtns();
-    won = true;
-  } else if (activePlayer === 2 && playerTwoHold >= 100) {
-    playerTwoSection.classList.add("victory");
-    disableRollAndHoldBtns();
-    won = true;
-  }
-
-  return won;
-};
-
-const disableRollAndHoldBtns = () => {
-  btnHold.disabled = true;
-  btnRoll.disabled = true;
-};
+// reset
+document.querySelector(".btn-newgame").addEventListener("click", init);
