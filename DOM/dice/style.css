@@ -1,6 +1,6 @@
 html {
-  font-size: 20px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 15px;
+  font-family: "Quicksand", sans-serif;
   line-height: 1.5;
   letter-spacing: 2px;
   word-spacing: 4px;
@@ -24,17 +24,89 @@ body {
   color: #222;
 }
 
-.title {
+p,
+h1,
+h2,
+h3 {
+  margin-top: 0;
   margin-bottom: 0;
 }
 
-div {
-  text-align: center;
+.title {
+  text-transform: uppercase;
+  margin-top: 15px;
+  font-size: 80px;
+}
+
+.player-title {
+  font-size: 35px;
 }
 
 .player {
   margin-top: 40px;
+  padding: 50px 0 50px 0;
   display: inline-block;
   width: 550px;
-  background-color: red;
+  border-radius: 4px;
+  /* background-color: #6092f0; */
+  background-color: #292e37;
+}
+
+.player-2 {
+  margin: -11px;
+}
+
+.active-player {
+  background-color: #161b24;
+}
+
+.hold {
+  font-size: 100px;
+}
+
+.current {
+  /* background-color: #3879f2; */
+  background-color: #02060d3b;
+  width: 256px;
+  margin: 85px auto 0 auto;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 15px;
+}
+
+.current-title {
+  text-transform: uppercase;
+}
+
+.current-score {
+  font-size: 40px;
+}
+
+.btn {
+  border: 0;
+  width: 250px;
+  padding: 13px 25px;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: antiquewhite;
+  cursor: pointer;
+}
+
+.btn-roll {
+  background-color: #0ac416a1;
+}
+
+.btn-hold {
+  background-color: #5e41c4;
+}
+
+.btn-newgame {
+  background-color: #f04545;
+}
+
+img {
+  width: 85px;
+  position: absolute;
+  left: 47%;
+  top: 42%;
 }
