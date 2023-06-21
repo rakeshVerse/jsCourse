@@ -32,7 +32,7 @@ let activePlayer = 1;
 // roll btn click event
 btnRoll.addEventListener("click", () => {
   // roll dice = generate a randowm number between 1-6
-  let dice = Math.floor(Math.random() * 6) + 1;
+  const dice = Math.floor(Math.random() * 6) + 1;
   console.log(dice);
 
   // dispaly dice img as per dice number
