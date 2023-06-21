@@ -56,6 +56,21 @@ btnRoll.addEventListener("click", () => {
   }
 });
 
+// hold btn click event
+btnHold.addEventListener("click", () => {
+  /**
+   * update hold variable of active player
+   * display updated hold value
+   * if hold >= 100
+   *  - active player won
+   * else
+   *  - switchPlayer
+   */
+  updateHoldScore();
+  const won = checkWinner();
+  if (!won) switchPlayer();
+});
+
 // reset
 document.querySelector(".btn-newgame").addEventListener("click", () => {
   location.reload();
@@ -77,4 +92,44 @@ const switchPlayer = () => {
     playerOneSection.classList.add("active-player"); // add active class to player-1
     activePlayer = 1; // set player-1 as active player
   }
+};
+
+// update hold score of active player
+const updateHoldScore = () => {
+  if (activePlayer === 1) {
+    playerOneHold += playerCurrentScore;
+    playerOneHoldTxt.textContent = playerOneHold;
+  } else {
+    playerTwoHold += playerCurrentScore;
+    playerTwoHoldTxt.textContent = playerTwoHold;
+  }
+};
+
+// check winner after every hold
+const checkWinner = () => {
+  /**
+   * if player won
+   *  - show green color section to indicate victory
+   *  - disable roll and hold btn
+   * else
+   *  - switch player
+   */
+
+  let won = false;
+  if (activePlayer === 1 && playerOneHold >= 100) {
+    playerOneSection.classList.add("victory");
+    disableRollAndHoldBtns();
+    won = true;
+  } else if (activePlayer === 2 && playerTwoHold >= 100) {
+    playerTwoSection.classList.add("victory");
+    disableRollAndHoldBtns();
+    won = true;
+  }
+
+  return won;
+};
+
+const disableRollAndHoldBtns = () => {
+  btnHold.disabled = true;
+  btnRoll.disabled = true;
 };
