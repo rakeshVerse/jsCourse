@@ -18,10 +18,9 @@ const openBtnList = document.querySelectorAll(".show-modal-btn");
 for (let i = 0; i < openBtnList.length; i++)
   openBtnList[i].addEventListener("click", openModal);
 
-// close modal
-const closeBtnList = document.querySelectorAll("#close-btn, #overlay");
-for (let i = 0; i < closeBtnList.length; i++)
-  closeBtnList[i].addEventListener("click", closeModal);
+// close modal when clicked on close button or overlay
+document.getElementById("close-btn").addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
 
 // close modal on keypress: ESC
 // attach event to entire document
