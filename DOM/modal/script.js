@@ -1,30 +1,30 @@
 "use strict";
 
-const openBtnList = document.querySelectorAll(".show-modal-btn");
+const modal = document.getElementById("md");
+const overlay = document.getElementById("overlay");
 
-// open modal on button click
-for (let i = 0; i < openBtnList.length; i++) {
-  openBtnList[i].addEventListener("click", () => {
-    // show modal & show overlay
-    document.getElementById("md").classList.remove("hidden");
-    document.getElementById("overlay").classList.remove("hidden");
-  });
-}
+const openModal = () => {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
 
 const closeModal = () => {
-  document.getElementById("md").classList.add("hidden");
-  document.getElementById("overlay").classList.add("hidden");
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
 };
+
+// open modal on button click
+const openBtnList = document.querySelectorAll(".show-modal-btn");
+for (let i = 0; i < openBtnList.length; i++)
+  openBtnList[i].addEventListener("click", openModal);
 
 // close modal
 const closeBtnList = document.querySelectorAll("#close-btn, #overlay");
-for (let i = 0; i < closeBtnList.length; i++) {
-  closeBtnList[i].addEventListener("click", () => {
-    closeModal();
-  });
-}
+for (let i = 0; i < closeBtnList.length; i++)
+  closeBtnList[i].addEventListener("click", closeModal);
 
 // close modal on keypress: ESC
-document.querySelector("html").addEventListener("keydown", (e) => {
-  e.key === "Escape" ? closeModal() : "";
+// attach event to entire document
+document.addEventListener("keydown", (e) => {
+  e.key === "Escape" && !modal.classList.contains("hidden") ? closeModal() : "";
 });
