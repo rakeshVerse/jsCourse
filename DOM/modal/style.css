@@ -37,14 +37,12 @@ body {
 
 #md {
   position: absolute;
-  top: 38%;
+  top: 35%;
   left: 11.4%;
   width: 70%;
   background-color: white;
   padding: 30px 50px;
-  -webkit-box-shadow: -4px 4px 25px 0px rgba(209, 207, 209, 1);
-  -moz-box-shadow: -4px 4px 25px 0px rgba(209, 207, 209, 1);
-  box-shadow: -4px 4px 25px 0px rgba(209, 207, 209, 1);
+  box-shadow: 0 3rem 5rem rgba(19, 19, 19, 0.3);
   z-index: 5;
 }
 
@@ -53,7 +51,7 @@ body {
   right: 2%;
   top: 4%;
   cursor: pointer;
-  font-size: 35px;
+  font-size: 42px;
   color: red;
 }
 
