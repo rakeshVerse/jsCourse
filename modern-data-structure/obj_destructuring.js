@@ -36,7 +36,7 @@ console.log(restaurantName, start, cat);
 
 /**
  * Default value, in case property doesn't exists:
- * syntax: { property-name: variable-name = [], propert-ynameL variable-name = [] } = obj
+ * syntax: { property-name: variable-name = [], property-name variable-name = [] } = obj
  */
 
 // property menu doesn't exists
