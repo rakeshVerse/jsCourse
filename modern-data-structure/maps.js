@@ -70,8 +70,90 @@ console.log(rest);
   [ 1, 2 ] => 'Test' <-- Array as key
 } */
 
-// access value of key type Array
+// Access value of key type Array
 console.log(rest.get(arr)); // -> Test
 
 // DOM element as key
-rest.set(document.querySelector("h1"), "Heading"); // get h1 from the page and set it as a Key
+// rest.set(document.querySelector("h1"), "Heading"); // get h1 from the page and set it as a Key
+
+// Create Map
+// Another way of creating Maps is passing an array or array to Map()
+// This way is better when creating a Map from scratch as doing so with set() is cumbersome
+// When adding elements programmaticlly to a Map then set() should be used
+const question = new Map([
+  ["question", "What is the best programming language in the world?"],
+  [1, "C"],
+  [2, "Java"],
+  [3, "JavaScript"],
+  ["correct", 3],
+  [true, "Correct 🎉"],
+  [false, "Try again!"],
+]);
+console.log(question); /** ->
+Map(7) {
+  'question' => 'What is the best programming language in the world?',
+  1 => 'C',
+  2 => 'Java',
+  3 => 'JavaScript',
+  'correct' => 3,
+  true => 'Correct 🎉',
+  false => 'Try again!'
+}
+*/
+
+// Convert from Object to Map
+// As we have seen, we can create a Map from an 'array of arrays'.
+// We can also create a Map from an Object.
+// Since, Object.entries(obj_name) returns an 'array of arrays'
+// we can converting an Object to a Map like so:
+const openingHoursObj = {
+  mon: {
+    open: 12,
+    close: 22,
+  },
+  tue: {
+    open: 11,
+    close: 23,
+  },
+  wed: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
+
+const openingHoursMap = new Map(Object.entries(openingHoursObj)); // convert object to map
+console.log(openingHoursMap); /**->
+Map(3) {
+  'mon' => { open: 12, close: 22 },
+  'tue' => { open: 11, close: 23 },
+  'wed' => { open: 0, close: 24 }
+}
+*/
+
+// Looping over Maps:
+// Since, Maps are Iterables we can iterate over Maps
+
+// Quiz App: Check if user's answer is correct or not
+
+console.log(question.get("question"));
+// loop over Map to show options to select from
+for (const [key, value] of question) {
+  // select only numeric keys
+  if (typeof key === "number") console.log(`Answer ${key}: ${value}`);
+}
+
+// get user answer
+const answer = 3;
+// const answer = Number(prompt("Enter your answer"));
+
+// if answer is 3 then correct answer
+console.log(question.get(question.get("correct") === answer));
+
+// Convert Map to Array
+console.log([...question]); // returns an array of arrays
+
+// Accessing keys and values
+// Just like Objects we can access keys and values of Maps like so
+console.log([...question.keys()]); // returns an array of keys
+console.log([...question.values()]); // returns an array of values
+console.log([...question.entries()]); // returns an array of keys & values same as [...question]
