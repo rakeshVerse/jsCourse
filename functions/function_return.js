@@ -1,5 +1,5 @@
 /**
- * Functions that returns another function are Higher Order Functions
+ * Functions that returns another function are Higher Order Functions. It's very useful in Funtional Programming
  */
 
 /**
