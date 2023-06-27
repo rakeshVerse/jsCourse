@@ -51,7 +51,7 @@ btnRoll.addEventListener("click", () => {
     // console.log(dice);
 
     // dispaly dice img as per dice number
-    diceImg.setAttribute("src", `/images/${dice}.png`);
+    diceImg.setAttribute("src", `images/${dice}.png`);
 
     //  if dice = 1- switch player else update current score of the active player
     if (dice === 1) {
