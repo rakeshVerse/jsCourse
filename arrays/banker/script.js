@@ -80,7 +80,42 @@ const displayTransactions = function (transactions) {
 
 displayTransactions(account1.movements);
 
-// ////////////////////////////////////////////
+// ////////////////////////////////
+// Calculate & Print balance
+const calcDisplayBalance = transaction =>
+  (labelBalance.textContent =
+    transaction.reduce((acc, amt) => acc + amt, 0) + '€');
+
+const balance = calcDisplayBalance(account1.movements);
+
+/////////////////////////////////////////////////
+
+// Calculate & display summary
+// [200, 450, -400, 3000, -650, -130, 70, 1300]
+const calcDisplaySummary = function (transaction) {
+  // income
+
+  labelSumIn.textContent = `${transaction
+    .filter(amt => amt > 0)
+    .reduce((acc, amt) => acc + amt, 0)}€`;
+
+  // outcome
+  labelSumOut.textContent = `${Math.abs(
+    transaction.filter(amt => amt < 0).reduce((acc, amt) => acc + amt, 0)
+  )}€`;
+
+  // interest
+  // sum of each deposit * interest-rate / 100
+  labelSumInterest.textContent = `${transaction
+    .filter(amount => amount > 0) // deposit array
+    .map(deposit => (deposit * 1.2) / 100) // calculate interest
+    .filter(interest => interest >= 1) // interest must be atleast 1
+    .reduce((acc, interest) => acc + interest, 0)}€`; // interest sum
+};
+
+calcDisplaySummary(account1.movements);
+
+////////////////////////////////////
 
 // Compute username (John Doe => jd)
 const createUserName = accs => {
@@ -94,16 +129,8 @@ const createUserName = accs => {
       .join('');
   });
 };
-createUserName(accounts);
 
-// ////////////////////////////////
-// Calculate & Print balance
-const calcDisplayBalance = function (transaction) {
-  labelBalance.textContent = transaction.reduce((acc, amt) => acc + amt, 0);
-};
-const balance = calcDisplayBalance(account1.movements);
-console.log(balance);
-/////////////////////////////////////////////////
+createUserName(accounts);
 /////////////////////////////////////////////////
 // LECTURES
 
