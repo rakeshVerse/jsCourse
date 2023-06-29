@@ -35,6 +35,24 @@ transaction.forEach(function (amount, index, arr) {
     );
 });
 
-/**
- * Note: We can not use break or continue with forEach
- */
+// Note: We can not use break or continue with forEach
+
+// MAPS
+const currency = new Map([
+  ['INR', 'Indian Rupees'],
+  ['USD', 'United States Dollars'],
+  ['GBP', 'Great Britain Pound'],
+]);
+
+// Callback accepts value, key & map in this order
+currency.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+// SETS
+const uniqueCurrency = new Set(['INR', 'USD', 'INR', 'GBP', 'GBP']);
+
+// 'value' and 'key' are SAME since, Sets don't have indices
+uniqueCurrency.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
