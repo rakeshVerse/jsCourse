@@ -13,3 +13,7 @@ console.log(transaction.includes(450)); // -> true
 // For checking a condition we have to use some()
 const anyDeposit = transaction.some(amt => amt > 0);
 console.log(anyDeposit); // -> true
+
+// Check if there's any deposit above 5000
+const anyDeposit5k = transaction.some(amt => amt > 5000);
+console.log(anyDeposit5k); // -> false
