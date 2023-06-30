@@ -61,6 +61,7 @@ console.log(finalBalance); // -> 17840
 // FLATMAP
 // Since, map() & flat() are often use together. For performance, we have flatMap() that does the job of map().flat()
 // It maps a new array then flatens it
+// Note: flatMap() flatens only one level deep array. For, more deeper array we still need to use flat()
 const balance = accounts
   .flatMap(acc => acc.transactions)
   .reduce((acc, amt) => acc + amt, 0);
