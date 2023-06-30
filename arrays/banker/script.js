@@ -83,9 +83,10 @@ const displayTransactions = function (transactions) {
 // ////////////////////////////////
 
 // Calculate & Print balance
-const calcDisplayBalance = transaction =>
-  (labelBalance.textContent =
-    transaction.reduce((acc, amt) => acc + amt, 0) + '€');
+const calcDisplayBalance = acc => {
+  acc.balance = acc.movements.reduce((acc, amt) => acc + amt, 0);
+  labelBalance.textContent = `${acc.balance}€`;
+};
 
 /////////////////////////////////////////////////
 
@@ -108,6 +109,20 @@ const calcDisplaySummary = function (currAcc) {
     .map(deposit => (deposit * currAcc.interestRate) / 100) // calculate interest
     .filter(interest => interest >= 1) // interest must be atleast 1
     .reduce((acc, interest) => acc + interest, 0)}€`; // interest sum
+};
+
+////////////////////////////////////
+
+// Update UI
+const updateUI = function (acc) {
+  // Display balance
+  calcDisplayBalance(acc);
+
+  // Display transaction
+  displayTransactions(acc.movements);
+
+  // Display summary
+  calcDisplaySummary(acc);
 };
 
 ////////////////////////////////////
@@ -154,20 +169,53 @@ const checkLogin = function (e) {
     // Display UI
     containerApp.style.opacity = 100;
 
-    // Display balance
-    calcDisplayBalance(currentAccount.movements);
-
-    // Display transaction
-    displayTransactions(currentAccount.movements);
-
-    // Display summary
-    calcDisplaySummary(currentAccount);
+    // Update UI
+    updateUI(currentAccount);
   }
 };
 
 btnLogin.addEventListener('click', checkLogin);
 
 //////////////////////////////////////
+
+// Transfer
+const transfer = function (e) {
+  e.preventDefault();
+
+  // Receive form input
+  const transferAmount = Number(inputTransferAmount.value);
+  const receiverAccount = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  console.log(receiverAccount, transferAmount);
+
+  // Clear fields
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  // Validate input
+  // amount must be greater than 0 and <= balance
+  // receiver name should exist & receiver mustn't be current user
+  if (
+    transferAmount > 0 &&
+    transferAmount <= currentAccount.balance &&
+    receiverAccount &&
+    receiverAccount.username !== currentAccount.username
+  ) {
+    // Deposite to receiver account
+    receiverAccount.movements.push(transferAmount);
+
+    // Withdraw from current account
+    currentAccount.movements.push(-transferAmount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+};
+
+btnTransfer.addEventListener('click', transfer);
+
+//////////////////////////////////////
+
 // LECTURES
 
 const currencies = new Map([
