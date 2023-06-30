@@ -60,11 +60,16 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////
 
 // Display Transactions
-const displayTransactions = function (transactions) {
+const displayTransactions = function (transactions, sorted = false) {
   containerMovements.innerHTML = ''; // Remove existing rows
 
+  // Sort
+  const transac = sorted
+    ? transactions.slice().sort((a, b) => a - b)
+    : transactions;
+
   // Show rows for each transaction
-  transactions.forEach(function (mov, i) {
+  transac.forEach(function (mov, i) {
     let type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const transactionsRow = `
@@ -266,6 +271,14 @@ btnClose.addEventListener('click', function (e) {
 });
 
 /////////////////////////////////////
+
+// Sort transactions
+let sorted = false;
+btnSort.addEventListener('click', function () {
+  displayTransactions(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+////////////////////////////////////////////
 
 // LECTURES
 
