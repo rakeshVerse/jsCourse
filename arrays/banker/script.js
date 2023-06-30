@@ -216,6 +216,29 @@ btnTransfer.addEventListener('click', transfer);
 
 //////////////////////////////////////
 
+// Request Loan
+// At least one deposite with at least 10% of the Loan amount
+// i.e. if Loan amount is 100 then at least one deposit shoud be 10 or greater
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  // Check if request loan amount satisfies the conditoin
+  if (amount > 0 && currentAccount.movements.some(amt => amt >= amount / 10)) {
+    // Deposit Loan
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+
+  // Clear fields
+  inputLoanAmount.value = '';
+});
+
+/////////////////////////////////////////
+
 // Close account
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
