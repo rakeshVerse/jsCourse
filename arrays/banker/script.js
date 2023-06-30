@@ -57,6 +57,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+/////////////////////////////////////
+
 // Display Transactions
 const displayTransactions = function (transactions) {
   containerMovements.innerHTML = ''; // Remove existing rows
@@ -78,42 +80,35 @@ const displayTransactions = function (transactions) {
   });
 };
 
-displayTransactions(account1.movements);
-
 // ////////////////////////////////
+
 // Calculate & Print balance
 const calcDisplayBalance = transaction =>
   (labelBalance.textContent =
     transaction.reduce((acc, amt) => acc + amt, 0) + '€');
 
-const balance = calcDisplayBalance(account1.movements);
-
 /////////////////////////////////////////////////
 
 // Calculate & display summary
-// [200, 450, -400, 3000, -650, -130, 70, 1300]
-const calcDisplaySummary = function (transaction) {
+const calcDisplaySummary = function (currAcc) {
   // income
-
-  labelSumIn.textContent = `${transaction
+  labelSumIn.textContent = `${currAcc.movements
     .filter(amt => amt > 0)
     .reduce((acc, amt) => acc + amt, 0)}€`;
 
   // outcome
   labelSumOut.textContent = `${Math.abs(
-    transaction.filter(amt => amt < 0).reduce((acc, amt) => acc + amt, 0)
+    currAcc.movements.filter(amt => amt < 0).reduce((acc, amt) => acc + amt, 0)
   )}€`;
 
   // interest
   // sum of each deposit * interest-rate / 100
-  labelSumInterest.textContent = `${transaction
+  labelSumInterest.textContent = `${currAcc.movements
     .filter(amount => amount > 0) // deposit array
-    .map(deposit => (deposit * 1.2) / 100) // calculate interest
+    .map(deposit => (deposit * currAcc.interestRate) / 100) // calculate interest
     .filter(interest => interest >= 1) // interest must be atleast 1
     .reduce((acc, interest) => acc + interest, 0)}€`; // interest sum
 };
-
-calcDisplaySummary(account1.movements);
 
 ////////////////////////////////////
 
@@ -131,7 +126,48 @@ const createUserName = accs => {
 };
 
 createUserName(accounts);
+
 /////////////////////////////////////////////////
+
+// Login
+let currentAccount;
+const checkLogin = function (e) {
+  e.preventDefault(); // prevent page reload
+
+  // check Username & Pin
+  currentAccount = accounts.find(
+    accObj =>
+      accObj.username === inputLoginUsername.value &&
+      accObj.pin === Number(inputLoginPin.value)
+  );
+
+  if (currentAccount) {
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    // Display welcome message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+
+    // Display UI
+    containerApp.style.opacity = 100;
+
+    // Display balance
+    calcDisplayBalance(currentAccount.movements);
+
+    // Display transaction
+    displayTransactions(currentAccount.movements);
+
+    // Display summary
+    calcDisplaySummary(currentAccount);
+  }
+};
+
+btnLogin.addEventListener('click', checkLogin);
+
+//////////////////////////////////////
 // LECTURES
 
 const currencies = new Map([
