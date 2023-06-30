@@ -166,7 +166,7 @@ const checkLogin = function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
 
-    // Display UI
+    // Show UI
     containerApp.style.opacity = 100;
 
     // Update UI
@@ -215,6 +215,34 @@ const transfer = function (e) {
 btnTransfer.addEventListener('click', transfer);
 
 //////////////////////////////////////
+
+// Close account
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Check if username & pin matches with current loggin user
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    // Find index for given username using findIndex()
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+
+    // Remove account
+    accounts.splice(index, 1);
+
+    // Hide UI & Update message
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Log in to get started`;
+  }
+
+  // Clear fields
+  inputClosePin.value = inputCloseUsername.value = '';
+});
+
+/////////////////////////////////////
 
 // LECTURES
 
