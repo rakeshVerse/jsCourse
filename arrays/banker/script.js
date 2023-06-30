@@ -291,3 +291,20 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+//////////////////////////////////////////
+// EXAMPLE Array.from()
+// Problem Statement: Calculate sum of transaction list from UI
+
+labelBalance.addEventListener('click', function () {
+  // Converting UI Node into an array, so that array methods can be performed on them
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+
+  // Alternate way of turning DOM Node to Array
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+});
+/////////////////////////////////
