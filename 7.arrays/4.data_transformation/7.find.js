@@ -39,6 +39,6 @@ const accounts = [
   },
 ];
 
-// Each object is an element 'accounts' array. So, find() returns an object that match given condition.
+// Each object is an element of 'accounts' array. So, find() returns an object that matches given condition.
 const userSarah = accounts.find(accObj => accObj.owner === 'Sarah Smith');
 console.log(userSarah); // -> {owner: 'Sarah Smith', movements: Array(5), interestRate: 1, pin: 4444}
