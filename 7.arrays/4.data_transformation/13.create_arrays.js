@@ -6,11 +6,12 @@ const arr = [1, 2, 3, 4, 5, 6, 7];
 // I. arrays + fill method
 const x = new Array(7); // creates an empty array of size 7
 console.log(x); // -> [ <7 empty items> ]
-x.fill(1, 3, 5); // fill value 1 from position 3 to 4 (last index is excluded)
-console.log(x); // -> [ <3 empty items>, 1, 1, <2 empty items> ]
 
 x.fill(1); // fill entire array with value 1
 console.log(x); // -> [1, 1, 1, 1, 1, 1, 1]
+
+x.fill(1, 3, 5); // fill value 1 from position 3 to 4 (last index is excluded)
+console.log(x); // -> [ <3 empty items>, 1, 1, <2 empty items> ]
 
 arr.fill(23, 2, 6); // fills 23 from position 2 to 5
 console.log(arr); // -> [1, 2, 23, 23, 23, 23, 7]

@@ -1,18 +1,18 @@
 const accounts = [
   {
-    owner: 'Jonas Schmedtmann',
+    owner: 'John Doe',
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
     interestRate: 1.2,
     pin: 1111,
   },
   {
-    owner: 'Jessica Davis',
+    owner: 'Thomas Lee',
     movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
     interestRate: 1.5,
     pin: 2222,
   },
   {
-    owner: 'Steven Thomas Williams',
+    owner: 'Steven Williams',
     movements: [200, -200, 340, -300, -20, 50, 400, -460],
     interestRate: 0.7,
     pin: 3333,
@@ -34,7 +34,7 @@ const totalDepositBalance = accounts
   .flatMap(acc => acc.movements)
   .filter(amt => amt > 0)
   .reduce((sum, amt) => sum + amt, 0);
-// console.log(totalDepositBalance); // -> 25180
+console.log(totalDepositBalance); // -> 25180
 
 // Exercise II. How many deposits there have been in the bank with at least 1000 USD
 // Solution I:
@@ -44,7 +44,7 @@ const totalDepositBalance = accounts
 const numDepositOverOneK = accounts
   .flatMap(acc => acc.movements)
   .filter(amt => amt >= 1000).length;
-// console.log(numDepositOverOneK); // -> 6
+console.log(numDepositOverOneK); // -> 6
 
 // Solution II:
 // get all transactions in one array
@@ -52,7 +52,7 @@ const numDepositOverOneK = accounts
 const numDeposit = accounts
   .flatMap(acc => acc.movements)
   .reduce((count, deposit) => (deposit >= 1000 ? count + 1 : count), 0);
-// console.log(numDeposit); // -> 6
+console.log(numDeposit); // -> 6
 
 // Example III. Create an object that contains the sum of the deposits and the withdrawls
 // [200, 450, -400, 3000, -650, -130, 70, 1300, 5000, 3400, -150, -790, -3210, -1000, 8500, -30, 200, -200, 340, -300, -20, 50, 400, -460, 430, 1000, 700, 50, 90]
