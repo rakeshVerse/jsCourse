@@ -8,7 +8,7 @@
 
 // EXAMPLE I
 const transac = [120, 457, -99, 487, -58, -97, 855, -9, 897];
-const firstNegativeNum = transac.find(amt => amt < 0); // -99 is the first element that satisfies the given condition
+const firstNegativeNum = transac.find(amt => amt < 0); // -99 is the first element that satisfies the given condition`
 // console.log(firstNegativeNum); //  -> -99
 
 // EXAMPLE II
