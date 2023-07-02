@@ -7,6 +7,14 @@ for (const amount of transaction) {
   if (amount > 0) console.log(`You have deposited: ${amount}`);
   else console.log(`You have withdrew: ${Math.abs(amount)}`);
 }
+/** -> 
+You have deposited: 120
+You have deposited: 457
+You have withdrew: 99
+You have deposited: 487
+You have withdrew: 58
+You have withdrew: 97 
+*/
 
 // Using forEach
 // forEach is a higher-order function which accepts a Callback function as argument.
@@ -22,6 +30,14 @@ transaction.forEach(function (amount) {
   if (amount > 0) console.log(`You have deposited: ${amount}`);
   else console.log(`You have withdrew: ${Math.abs(amount)}`);
 });
+/** -> 
+You have deposited: 120
+You have deposited: 457
+You have withdrew: 99
+You have deposited: 487
+You have withdrew: 58
+You have withdrew: 97 
+*/
 
 // GET INDEX using forEach
 // Callback function accepts: item, index and entire array in this particular order only like so
@@ -34,6 +50,14 @@ transaction.forEach(function (amount, index, arr) {
       `Transaction ${index + 1}: You have withdrew: $${Math.abs(amount)}`
     );
 });
+/** -> 
+Transaction 1: You have deposited: $120
+Transaction 2: You have deposited: $457
+Transaction 3: You have withdrew: $99
+Transaction 4: You have deposited: $487
+Transaction 5: You have withdrew: $58
+Transaction 6: You have withdrew: $97 
+*/
 
 // Note: We can not use break or continue with forEach
 
@@ -48,6 +72,11 @@ const currency = new Map([
 currency.forEach(function (value, key, map) {
   console.log(`${key}: ${value}`);
 });
+/** -> 
+INR: Indian Rupees
+USD: United States Dollars
+GBP: Great Britain Pound 
+*/
 
 // SETS
 const uniqueCurrency = new Set(['INR', 'USD', 'INR', 'GBP', 'GBP']);
@@ -56,3 +85,8 @@ const uniqueCurrency = new Set(['INR', 'USD', 'INR', 'GBP', 'GBP']);
 uniqueCurrency.forEach(function (value, key, map) {
   console.log(`${key}: ${value}`);
 });
+/** ->
+INR: INR
+USD: USD
+GBP: GBP 
+*/
