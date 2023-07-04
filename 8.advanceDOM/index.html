@@ -6,16 +6,34 @@
   <title>Advance DOM</title>
   <style>
     body{
-      background-color: rgb(33, 33, 33);
+      background-color: rgb(19, 25, 35);
       color:antiquewhite;
     }
 
+    nav{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .nav-links{
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-link{
+      margin-right: 40px;
+      text-decoration: none;
+      color: aliceblue;
+    }
+
     .btn{
-      margin-left: 20px;
-      background-color: blue;
+      margin-right: 20px;
+      background-color: rgb(255, 200, 0);
       width: 150px;
       height: 40px;
       font-size: 25px;
+      cursor: pointer;
     }
 
     .cookie-message {
@@ -23,32 +41,48 @@
       color:grey;
       width: 70%;
     }
+    
    .head-img{
     width: 50%;
    }
 
    .sec-head{
-    color: brown;
+    color: rgb(255, 217, 0);
    }
 
    #top-scroll {
-    color: red;
+    color: rgb(44, 51, 31);
     position:fixed;
     top: 550px; 
     right: 20px; 
     z-index: 999; 
+    background-color: yellow;
+    border-radius: 20px;
+    padding: 3px 10px;
+    text-decoration: none;
    }
   </style>
 </head>
 <body>
+  <nav>
+    <h1>DOM</h1>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#sec-fea" class="nav-link">Feature</a></li>
+      <li class="nav-item"><a href="#sec-pre" class="nav-link">Premium</a></li>
+      <li class="nav-item"><a href="#sec-team" class="nav-link">Team</a></li> 
+    </ul>
+  </nav>
   <h1 class="heading">Heading</h1>
   <p class="sub-txt">Hi There!</p>
   <a href="grow.jpg" class="link">Beutiful Plant</a>
   <br>
   <img class="head-img" src="grow.jpg" alt="grow" designer="rr" data-version-number="1.0">
   <br>
-  <button class="btn">Feature</button><button class="btn">Premium</button><button class="btn">Team</button>
-  <h2 class="sec-head">Feature Section</h2>
+  <button class="btn">Feature</button>
+  <button class="btn">Premium</button>
+  <button class="btn">Team</button>
+
+  <h2 class="sec-head" id="sec-fea">Feature Section</h2>
   <section class="feature-section">
     <p class="section-paras">
       <h2>Paragraph 1</h2>
@@ -79,7 +113,7 @@
       This is some random text. This is some random text. This is some random text. This is some random text. This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.
     </p>
   </section>
-  <h2 class="sec-head">Premium Section</h2>
+  <h2 class="sec-head" id="sec-pre">Premium Section</h2>
   <section class="premium-section">
     <h1>Premium Paragraph 1</h1>
     This is some random text. This is some random text. This is some random text. This is some random text. This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.
@@ -100,7 +134,7 @@
     <h1>Premium Paragraph 5</h1>
     This is some random text. This is some random text. This is some random text. This is some random text. This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.
   </section>
-  <h2 class="sec-head">Team</h2>
+  <h2 class="sec-head" id="sec-team">Team</h2>
   <section class="team-section">
     <h1>Paragraph 1</h1>
     This is some random text. This is some random text. This is some random text. This is some random text. This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.
@@ -121,7 +155,7 @@
     <h1>Paragraph 5</h1>
     This is some random text. This is some random text. This is some random text. This is some random text. This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.
   </section>
-  <a href="" id="top-scroll">Scroll to Top</a>
+  <a href="" id="top-scroll">Scroll to Top&UpArrow;</a>
   <br>
   <footer>Copyright @ redcomp</footer>
   <script src="select_insert_delete_elements.js"></script>

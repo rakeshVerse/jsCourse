@@ -156,11 +156,11 @@ console.log(rect.left); // Distance from the left edge of the viewport to the le
 // scroll from top to bottom - window.scrollY
 
 // Get current x & y scroll
-window.addEventListener('scroll', () => {
-  const x = window.scrollX;
-  const y = window.scrollY;
-  console.log({ x, y });
-});
+// window.addEventListener('scroll', () => {
+//   const x = window.scrollX;
+//   const y = window.scrollY;
+//   console.log({ x, y });
+// });
 
 // How to Scroll to specific section?
 
@@ -211,7 +211,117 @@ allButtons[3].addEventListener('click', () =>
 const scrollTop = document.getElementById('top-scroll');
 scrollTop.addEventListener('click', e => {
   e.preventDefault();
-  document.querySelector('.heading').scrollIntoView({ behavior: 'smooth' });
+  document.querySelector('nav').scrollIntoView({ behavior: 'smooth' });
 });
 
 // ////////////////////////////////////////
+
+/**
+ * EVENTS
+ *
+ * Listener vs Handler:
+ * The event listener listens out for the event happening, and the event handler
+ * is the code that is run in response to it happening.
+ */
+
+// REGISTERING EVENTS
+
+// 3 ways of registering events
+// 1. calling addEventListener on the element
+// 2. using element property e.g. button.onclick = function(){}
+// 3. injecting JS directly in HTML e.g. <h1 onclick = "alert('hi')">Heading</h1>
+
+// Registering an Event
+const heading = document.querySelector('.heading');
+
+const showAlert = function (e) {
+  alert('addEventListener: Great! You are reading the heading :D');
+};
+
+// event mouseenter (similar to CSS hover)
+heading.addEventListener('mouseenter', showAlert);
+
+// Remove Event after 3 sec
+setTimeout(() => heading.removeEventListener('mouseenter', showAlert), 3000);
+
+// EVENT PROPOGATION - Propogating from Parent to Child (Target) & vice-versa
+
+// When we attach an event to an element it goes through three phases:
+// I. Capturing Phase - event doesn't gets attached to targe element directly.
+// It traverses from Parent element to target element
+// II. Target Phase - element where event is attached to.
+// III. Bubbling Phase - bubbles up from Target to Parent. When we attach an event to an element,
+// JS attaches same event to all its parents . This is the default phase
+// of addEventListener().
+
+// Example of Event Propogation
+// When click on 1st list item: event fires for all three elements
+// When click on list container (ul): event fires for container and navbar
+// When click on nav bar: event fires for nav bar only
+
+// // Generate random colors
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () =>
+//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+// // 1st link
+// document
+//   .querySelectorAll('.nav-link')[0]
+//   .addEventListener('click', function (e) {
+//     console.log(`from 1st link item`);
+//     this.style.backgroundColor = randomColor();
+//     console.log(e.target); // get target element
+//     console.log(e.currentTarget); // get current target element
+//   });
+
+// // ul (link container)
+// document.querySelector('.nav-links').addEventListener('click', function (e) {
+//   console.log(`link container`);
+//   this.style.backgroundColor = randomColor();
+//   console.log(e.target);
+//   console.log(e.currentTarget);
+// });
+
+// // nav
+// document.querySelector('nav').addEventListener('click', function (e) {
+//   console.log(`navbar`);
+//   this.style.backgroundColor = randomColor();
+//   console.log(e.target);
+//   console.log(e.currentTarget);
+// });
+
+// EVENT DELEGATION
+
+// // Add scroll to menus using forEach() [Inefficient Way]
+// document.querySelectorAll('.nav-link').forEach(function (el) {
+//   el.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// Event Delegation:
+// In case of thousands of Node items, above way of attching event to individual Node item using forEach() is inefficient
+// For efficiency, we use Event Delegation
+
+// How to apply Event Delegation?
+// 1. Add event listner to common parent element
+// 2. Determine what element originated the event (e.target)
+
+// Implementaion:
+// Apply event listener to 'ul'
+// Now, event listener listens to all the items inside 'ul'
+document.querySelector('.nav-links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Matching Strategy (scroll only when clicked on the link, exclude the parent)
+  if (e.target.classList.contains('nav-link')) {
+    document
+      .querySelector(e.target.getAttribute('href'))
+      .scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+// ////////////////////////////////////////////
