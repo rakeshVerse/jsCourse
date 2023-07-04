@@ -126,10 +126,92 @@ console.log(img.dataset.versionNumber);
 // CLASSES
 
 // add class
-img.className = 'greenplant'; // adds specified class by overwriting all the existing classes
+// img.className = 'greenplant'; // adds specified class by overwriting all the existing classes. Don't use it
 img.classList.add('class1', 'class2'); // append new class comma sepreated
 img.classList.remove('class1', 'class2'); // remove classes comma sepreated
 img.classList.toggle('class1'); // add class if not exist, remove if exist
 console.log(img.classList.contains('class1')); // check if element contains specified class, returns true/false
 
 // //////////////////////////////////
+
+/**
+ * SCROLL
+ */
+
+// getBoundingClientRect()
+// eturns the size and position of an element relative to the viewport (the visible area of a web page).
+// It provides information about the element's dimensions (width and height) and its position (top, right, bottom, and left)
+// with respect to the top - left corner of the viewport.
+const rect = img.getBoundingClientRect();
+console.log(rect);
+console.log(rect.width); // Width of the element
+console.log(rect.height); // Height of the element
+console.log(rect.top); // Distance from the top edge of the viewport to the top edge of the element
+console.log(rect.right); // Distance from the left edge of the viewport to the right edge of the element
+console.log(rect.bottom); // Distance from the top edge of the viewport to the bottom edge of the element
+console.log(rect.left); // Distance from the left edge of the viewport to the left edge of the element
+
+// Get how much pixels have been scrolled
+// scroll from left to right - window.scrollX
+// scroll from top to bottom - window.scrollY
+
+// Get current x & y scroll
+window.addEventListener('scroll', () => {
+  const x = window.scrollX;
+  const y = window.scrollY;
+  console.log({ x, y });
+});
+
+// How to Scroll to specific section?
+
+// Old way:
+//  - Get position of element where you want to scroll to using getBoundingClientRect()
+//  - Get scroll coordinates
+//  - Use scrollTo() on window object -
+//  - window.scrollTo(left-position + left-scroll, top-position + top-scroll)
+//  - For smooth scroll: window.scrollTo({left: left + left-scroll, top: top + top-scroll, behavior: 'smooth'})
+
+// New way:
+// No need to calculate coordinates just use scrollIntoView() on element where you want to scroll to
+// element.scrollIntoView({ behavior: 'smooth' })
+// Scroll to feature
+const featureSec = document.querySelectorAll('.sec-head')[0];
+allButtons[1].addEventListener('click', function (e) {
+  // old way
+  // const secRect = featureSec.getBoundingClientRect();
+  // console.log(`Before scroll: x-${window.scrollX}, y-${window.scrollY}`);
+  // console.log(`left: ${secRect.left}, top: ${secRect.top}`);
+
+  // // window.scrollTo(secRect.left + window.scrollX, secRect.top + window.scrollY); // Scroll without effect
+
+  // window.scrollTo({
+  //   left: secRect.left + window.scrollX,
+  //   top: secRect.top + window.scrollY,
+  //   behavior: 'smooth',
+  // }); // Scroll with effect
+  // console.log(`After scroll: x-${window.scrollX}, y-${window.scrollY}`);
+
+  // new way
+  featureSec.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Scroll to premium
+const premiumSec = document.querySelectorAll('.sec-head')[1];
+allButtons[2].addEventListener('click', () =>
+  premiumSec.scrollIntoView({ behavior: 'smooth' })
+);
+
+// Scroll to team
+const teamSec = document.querySelectorAll('.sec-head')[2];
+allButtons[3].addEventListener('click', () =>
+  teamSec.scrollIntoView({ behavior: 'smooth' })
+);
+
+// Scroll to top
+const scrollTop = document.getElementById('top-scroll');
+scrollTop.addEventListener('click', e => {
+  e.preventDefault();
+  document.querySelector('.heading').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ////////////////////////////////////////
