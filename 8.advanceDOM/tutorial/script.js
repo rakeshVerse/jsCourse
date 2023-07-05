@@ -394,3 +394,31 @@ tabBtnContainer.addEventListener('click', function (e) {
 });
 
 // ///////////////////////////////////////
+
+// PASSING ARGUMENTS TO EVENT HANDLERS
+
+// Event handlers only accepts an Event object generally named as 'e'
+// Only way to pass additional arguments is using bind()
+// In bind, we can pass only one item, so incase of multiple arguments use array or object
+
+// Example - Animate menu: When hover over one menu other fades out
+
+const hoverLinkEffect = function (e) {
+  if (e.target.classList.contains('nav-link')) {
+    // if link clicked
+    const link = e.target;
+    const linkSiblings = link.closest('.nav').querySelectorAll('.nav-link'); // select all siblings
+    const logo = link.closest('.nav').querySelector('.logo');
+
+    // for all links set opacity except the clicked link
+    linkSiblings.forEach(l => {
+      if (l !== e.target) l.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+const nav = document.querySelector('.nav');
+// passing opacity using bind()
+nav.addEventListener('mouseover', hoverLinkEffect.bind(0.3));
+nav.addEventListener('mouseout', hoverLinkEffect.bind(1)); // set links back to normal
