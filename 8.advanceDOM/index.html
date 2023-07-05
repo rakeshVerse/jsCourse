@@ -4,64 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advance DOM</title>
-  <style>
-    body{
-      background-color: rgb(19, 25, 35);
-      color:antiquewhite;
-    }
-
-    nav{
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-    
-    .nav-links{
-      display: flex;
-      list-style: none;
-    }
-
-    .nav-link{
-      margin-right: 40px;
-      text-decoration: none;
-      color: aliceblue;
-    }
-
-    .btn{
-      margin-right: 20px;
-      background-color: rgb(255, 200, 0);
-      width: 150px;
-      height: 40px;
-      font-size: 25px;
-      cursor: pointer;
-    }
-
-    .cookie-message {
-      background-color: white;
-      color:grey;
-      width: 70%;
-    }
-    
-   .head-img{
-    width: 50%;
-   }
-
-   .sec-head{
-    color: rgb(255, 217, 0);
-   }
-
-   #top-scroll {
-    color: rgb(44, 51, 31);
-    position:fixed;
-    top: 550px; 
-    right: 20px; 
-    z-index: 999; 
-    background-color: yellow;
-    border-radius: 20px;
-    padding: 3px 10px;
-    text-decoration: none;
-   }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav>
@@ -72,7 +18,20 @@
       <li class="nav-item"><a href="#sec-team" class="nav-link">Team</a></li> 
     </ul>
   </nav>
-  <h1 class="heading">Heading</h1>
+  <header class="header">
+    <div class="header__title">
+      <h1 class="h1">
+        This
+        <span class="highlight">heading</span>
+        <!-- comment example -->
+        is
+        <span class="highlight">great</span>
+      </h1>
+      <h4>A simpler experience for a simpler life</h4>
+      <a href="">Learn more &DownArrow;</a>
+    </div>
+  </header>
+  <h1 class="heading">Example</h1>
   <p class="sub-txt">Hi There!</p>
   <a href="grow.jpg" class="link">Beutiful Plant</a>
   <br>
@@ -155,6 +114,23 @@
     <h1>Paragraph 5</h1>
     This is some random text. This is some random text. This is some random text. This is some random text. This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.This is some random text.
   </section>
+
+  <!-- tabs -->
+  <br>
+  <h1>TABS</h1>
+  <div class="tab-container">
+    <div class="tab-btn-container">
+      <button class="btn tab-btn tab-btn--1 tab-btn--active" data-tab="1"><span>1st</span> Tab</button>
+      <button class="btn tab-btn tab-btn--2" data-tab="2"><span>2nd</span> Tab</button>
+      <button class="btn tab-btn tab-btn--3" data-tab="3"><span>3rd</span> Tab</button>
+    </div>
+    <div class="tab-content tab-content--1 tab-content--active"><h3>Tab 1</h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+
+    <div class="tab-content tab-content--2"><h3>Tab 2</h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+
+    <div class="tab-content tab-content--3"><h3>Tab 3</h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+  </div>
+<br>
   <a href="" id="top-scroll">Scroll to Top&UpArrow;</a>
   <br>
   <footer>Copyright @ redcomp</footer>

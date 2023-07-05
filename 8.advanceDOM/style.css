@@ -1,0 +1,86 @@
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: rgb(19, 25, 35);
+  color: antiquewhite;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-link {
+  margin-right: 40px;
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.header {
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.highlight {
+  color: #e8b211;
+}
+
+.btn {
+  margin-right: 20px;
+  background-color: rgb(255, 200, 0);
+  width: 105px;
+  height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cookie-message {
+  background-color: white;
+  color: grey;
+  width: 70%;
+}
+
+.head-img {
+  width: 50%;
+}
+
+.sec-head {
+  color: rgb(255, 217, 0);
+}
+
+#top-scroll {
+  color: rgb(44, 51, 31);
+  position: fixed;
+  top: 550px;
+  right: 20px;
+  z-index: 999;
+  background-color: yellow;
+  border-radius: 20px;
+  padding: 3px 10px;
+  text-decoration: none;
+}
+
+/* tabs */
+
+.tab-container {
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.tab-btn--active {
+  /* box-shadow: 10px 10px 5px 0px rgba(189, 178, 189, 1); */
+  box-shadow: 6px 4px 4px -1px rgba(232, 223, 232, 0.76);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content--active {
+  display: block;
+}

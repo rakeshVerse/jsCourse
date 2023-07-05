@@ -325,3 +325,72 @@ document.querySelector('.nav-links').addEventListener('click', function (e) {
 });
 
 // ////////////////////////////////////////////
+
+// DOM TRAVERSING
+
+const h1 = document.querySelector('.h1');
+
+// Going downwards: child
+console.log(h1.querySelectorAll('.highlight')); // returns NodeList of all child elements of h1 that have specified selector (class/id/tag)
+console.log(h1.childNodes); // returns  NodeList of all the childs (elements, text & comments)
+console.log(h1.children); // returns HTMLCollection of all the child elements (ignore text & comments)
+console.log(h1.firstElementChild); // returns first child element
+// h1.firstElementChild.style.color = 'green';
+// h1.lastElementChild.style.color = 'orangered';
+
+// Going upwards: parents
+console.log(h1.parentNode); // returns first parent element
+console.log(h1.parentElement); // returns first parent element
+
+// h1.closest('.header').style.background = 'orangered'; // returns closest parent that matches specified selector
+// h1.closest('h1').style.background = 'blue'; // selects itself
+
+// Going sideways: siblings
+console.log(h1.previousElementSibling); // returns previous sibling element
+console.log(h1.nextElementSibling); // returns next sibling element
+
+console.log(h1.previousSibling); // returns previous sibling text/comment
+console.log(h1.nextSibling); // returns next sibling text/comment
+
+// Get all the siblings
+// Go to the parent, then select all the child elements
+console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   // console.log(el);
+//   if (el !== h1) el.style.transform = 'scale(0.5)';
+// });
+
+///////////////////////////////////////////
+
+// TABS
+
+const tabBtnContainer = document.querySelector('.tab-btn-container');
+const tabContents = document.querySelectorAll('.tab-content');
+const tabBtns = document.querySelectorAll('.tab-btn');
+
+tabBtnContainer.addEventListener('click', function (e) {
+  // console.log(e.target); // returns all the child elements
+  // console.log(e.target.closest('.tab-btn')); // returns only buttons
+
+  const btn = e.target.closest('.tab-btn');
+
+  // Guard clause - if any other subling is clicked, don't proceed
+  if (!btn) return;
+
+  // Tab logic:
+  // 1. Remove active classes from all the buttons & content areas
+  // 2. Add active calsses to clicked button & respective content area
+
+  // 1. remove active classes
+  // on button click, remove active & set active for clicked button
+  tabBtns.forEach(b => b.classList.remove('tab-btn--active'));
+  tabContents.forEach(c => c.classList.remove('tab-content--active'));
+
+  // 2. add active classes
+  btn.classList.add('tab-btn--active');
+  document
+    .querySelector(`.tab-content--${btn.dataset.tab}`)
+    .classList.add('tab-content--active');
+});
+
+// ///////////////////////////////////////
