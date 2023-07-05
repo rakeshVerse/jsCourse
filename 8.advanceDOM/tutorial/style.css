@@ -8,6 +8,8 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 80px;
+  width: 100%;
 }
 
 .nav-links {
@@ -83,4 +85,11 @@ nav {
 
 .tab-content--active {
   display: block;
+}
+
+/* sticky nav */
+.sticky {
+  position: fixed;
+  top: 0;
+  background-color: rgba(19, 25, 35, 0.97);
 }

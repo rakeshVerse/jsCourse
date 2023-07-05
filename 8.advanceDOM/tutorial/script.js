@@ -422,3 +422,21 @@ const nav = document.querySelector('.nav');
 // passing opacity using bind()
 nav.addEventListener('mouseover', hoverLinkEffect.bind(0.3));
 nav.addEventListener('mouseout', hoverLinkEffect.bind(1)); // set links back to normal
+
+////////////////////////////////////////////////////////
+
+// STICKY NAVBAR
+
+// Note: Inefficient way since, scroll event fires on every scroll which is not good from performance stand point
+
+// Add sticky when scroll beyond image
+const imgBottom = document
+  .querySelector('.head-img')
+  .getBoundingClientRect().bottom;
+
+window.addEventListener('scroll', function () {
+  if (this.window.scrollY > imgBottom) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
+
+// ////////////////////////////////////////////////////
