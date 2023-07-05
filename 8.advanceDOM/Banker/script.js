@@ -88,3 +88,24 @@ btnContainer.addEventListener('click', function (e) {
 });
 
 // ////////////////////////////////////////////
+
+// MENU ANIMATION
+
+const menuHoverEffect = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const menu = e.target;
+    const menuSiblings = menu.closest('.nav').querySelectorAll('.nav__link');
+    const logo = menu.closest('.nav').querySelector('img');
+
+    menuSiblings.forEach(m => {
+      if (m !== menu) m.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+const nav = document.querySelector('.nav');
+nav.addEventListener('mouseover', menuHoverEffect.bind(0.4));
+nav.addEventListener('mouseout', menuHoverEffect.bind(1));
+
+// ///////////////////////////////////////////////
