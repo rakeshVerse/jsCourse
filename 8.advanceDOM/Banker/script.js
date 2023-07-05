@@ -35,6 +35,8 @@ document.addEventListener('keydown', function (e) {
 
 ///////////////////////////////////////////////
 
+// Scroll
+
 // Scroll to Feature when Learn More is clicked
 document
   .querySelector('.btn--scroll-to')
@@ -42,4 +44,47 @@ document
     document.getElementById('section--1').scrollIntoView({ behavior: 'smooth' })
   );
 
+// Scroll for Menu items (Event Delegation)
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (e.target.classList.contains('nav__link')) {
+    document
+      .querySelector(e.target.getAttribute('href'))
+      .scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+// Scroll to Top
+document.getElementById('top-scroll').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  document.querySelector('body').scrollIntoView({ behavior: 'smooth' });
+});
+
 // ////////////////////////////////////////
+
+// TAB
+const btnContainer = document.querySelector('.operations__tab-container');
+const tabBtns = document.querySelectorAll('.operations__tab');
+const tabContents = document.querySelectorAll('.operations__content');
+
+btnContainer.addEventListener('click', function (e) {
+  // select button only out of other childs of parent container
+  const btn = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!btn) return;
+
+  // Remove active classes from all buttons & contents
+  tabBtns.forEach(b => b.classList.remove('operations__tab--active'));
+  tabContents.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Add active classes to clicked button & content
+  btn.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${btn.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+
+// ////////////////////////////////////////////
