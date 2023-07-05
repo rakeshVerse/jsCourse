@@ -109,3 +109,15 @@ nav.addEventListener('mouseover', menuHoverEffect.bind(0.4));
 nav.addEventListener('mouseout', menuHoverEffect.bind(1));
 
 // ///////////////////////////////////////////////
+
+// STICKY NAV
+
+const section1 = document
+  .querySelector('#section--1')
+  .getBoundingClientRect().top;
+
+window.addEventListener('scroll', function () {
+  if (this.window.scrollY > section1) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
+//////////////////////////////////////////////////////
