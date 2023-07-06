@@ -440,7 +440,7 @@ nav.addEventListener('mouseout', hoverLinkEffect.bind(1)); // set links back to 
 // Note: This is an Inefficient way since, scroll event constantly fires on every scroll which hampers the
 // performance as all this happens in the main thread.
 
-// ////////////////////////////////////////////////////
+// -------------------------------------------------------------------------------
 
 // INTERSECTION OBSERVER API
 
@@ -476,9 +476,11 @@ const callback = (entries, observer) => {
 // and threshold, decides when to invoke the callback, ranges from .0 to 1 (i.e. 0% - 100%)
 // To invoke callback when taget crosses 10% of viewport/ancestor (in & out), the threshold will be 0.1
 // threshold also accepts an array of percentage like [0, 0.2, 0.5]
+
+const navHeight = nav.getBoundingClientRect().height;
 const options = {
   root: null, // viewport
-  rootMargin: '0px',
+  rootMargin: `-${navHeight + 25}px`,
   threshold: 0, // invoke callback as soon as image bottom enters or leaves the viewport
 };
 
@@ -518,3 +520,25 @@ allSecs.forEach(sec => {
 });
 
 // /////////////////////////////////////////////////////
+
+// LAZY LOADING
+const lazyLoad = function (entries) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src; // replace image src with data-src
+
+  // remove blur class after img load
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+};
+
+const imgObserver = new IntersectionObserver(lazyLoad, {
+  root: null,
+  threshold: 0,
+  rootMargin: '0px',
+});
+
+imgObserver.observe(img);

@@ -104,3 +104,8 @@ nav {
   opacity: 0;
   transform: translateY(10px);
 }
+
+/* lazy load */
+.lazy-img {
+  filter: blur(5px);
+}
