@@ -93,3 +93,14 @@ nav {
   top: 0;
   background-color: rgba(19, 25, 35, 0.97);
 }
+
+/* hide sections */
+.section {
+  opacity: 1;
+  /* transition: all 0.9s ease; */
+  transition: transform 1s, opacity 1s;
+}
+.section-hidden {
+  opacity: 0;
+  transform: translateY(10px);
+}

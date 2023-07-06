@@ -488,3 +488,33 @@ const observer = new IntersectionObserver(callback, options);
 
 // Once you have created the observer, you need to give it a target element to watch:
 observer.observe(img);
+
+//////////////////////////////////////////////////////
+
+// SECTION REVEAL
+// Fade in sections on scroll
+
+const revealSec = function (entries, observer) {
+  const [entry] = entries;
+
+  // Guard clause
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove('section-hidden');
+
+  observer.unobserve(entry.target); // unobserve after adding effect
+};
+
+const secObserver = new IntersectionObserver(revealSec, {
+  root: null,
+  threshold: 0.15,
+});
+
+// attach oberserver to all the sections
+const allSecs = document.querySelectorAll('.section');
+allSecs.forEach(sec => {
+  secObserver.observe(sec); // attach current sec
+  sec.classList.add('section-hidden'); // hide section
+});
+
+// /////////////////////////////////////////////////////
