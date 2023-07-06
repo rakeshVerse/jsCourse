@@ -149,3 +149,29 @@ const stickyObs = new IntersectionObserver(stickyCB, stickyOps);
 stickyObs.observe(header);
 
 //////////////////////////////////////////////////////
+
+// REVEAL SECTIONS
+
+const revealSec = function (entries, observer) {
+  const [entry] = entries;
+
+  // Guard clause
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove('section--hidden'); // remove hidden class
+  observer.unobserve(entry.target);
+};
+
+const secObserver = new IntersectionObserver(revealSec, {
+  root: null,
+  threshold: 0.2,
+});
+
+const allSections = document.querySelectorAll('.section');
+console.log(allSections);
+allSections.forEach(sec => {
+  secObserver.observe(sec); // add target
+  sec.classList.add('section--hidden'); // hide section
+});
+
+// ///////////////////////////////////////////////////////////
