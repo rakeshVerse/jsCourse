@@ -112,12 +112,40 @@ nav.addEventListener('mouseout', menuHoverEffect.bind(1));
 
 // STICKY NAV
 
-const section1 = document
-  .querySelector('#section--1')
-  .getBoundingClientRect().top;
+// Old inefficient way: Using window Scroll
+// const section1 = document
+//   .querySelector('#section--1')
+//   .getBoundingClientRect().top;
 
-window.addEventListener('scroll', function () {
-  if (this.window.scrollY > section1) nav.classList.add('sticky');
-  else nav.classList.remove('sticky');
-});
+// window.addEventListener('scroll', function () {
+//   if (this.window.scrollY > section1) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+// -------------------------------------
+
+// New efficient way: Intersection Observer API
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+
+// callback
+const stickyCB = function (entries) {
+  const [entry] = entries;
+
+  entry.isIntersecting
+    ? nav.classList.remove('sticky')
+    : nav.classList.add('sticky');
+};
+
+// options
+const stickyOps = {
+  root: null,
+  rootMargin: `-${navHeight}px`,
+  threshold: 0,
+};
+
+// observer
+const stickyObs = new IntersectionObserver(stickyCB, stickyOps);
+stickyObs.observe(header);
+
 //////////////////////////////////////////////////////
