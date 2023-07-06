@@ -427,16 +427,64 @@ nav.addEventListener('mouseout', hoverLinkEffect.bind(1)); // set links back to 
 
 // STICKY NAVBAR
 
-// Note: Inefficient way since, scroll event fires on every scroll which is not good from performance stand point
-
 // Add sticky when scroll beyond image
-const imgBottom = document
-  .querySelector('.head-img')
-  .getBoundingClientRect().bottom;
+// const imgBottom = document
+//   .querySelector('.head-img')
+//   .getBoundingClientRect().bottom;
 
-window.addEventListener('scroll', function () {
-  if (this.window.scrollY > imgBottom) nav.classList.add('sticky');
-  else nav.classList.remove('sticky');
-});
+// window.addEventListener('scroll', function () {
+//   if (this.window.scrollY > imgBottom) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+// Note: This is an Inefficient way since, scroll event constantly fires on every scroll which hampers the
+// performance as all this happens in the main thread.
 
 // ////////////////////////////////////////////////////
+
+// INTERSECTION OBSERVER API
+
+// The optimized way for Scroll related event handling is Intersection Observer API
+// Because it registers a Callback which gets called only when
+// the specified target intersets (moving into the view & moving out to the view) the root (viewport/ancester element).
+
+// Whenever the target meets a threshold specified for the IntersectionObserver, the callback is invoked.
+// The callback receives a list of IntersectionObserverEntry objects and the observer:
+const callback = (entries, observer) => {
+  const [entry] = entries;
+
+  if (entry.isIntersecting) nav.classList.remove('sticky');
+  else nav.classList.add('sticky');
+
+  entries.forEach(entry => {
+    // Each entry describes an intersection change for one observed
+    // target element:
+    // entry.boundingClientRect
+    // entry.intersectionRatio
+    // entry.intersectionRect
+    // entry.isIntersecting
+    // entry.rootBounds
+    // entry.target
+    // entry.time
+    // console.log(entry);
+  });
+};
+
+// options object has three options:
+// root, can be an ancestor or viewport
+// rootMargin
+// and threshold, decides when to invoke the callback, ranges from .0 to 1 (i.e. 0% - 100%)
+// To invoke callback when taget crosses 10% of viewport/ancestor (in & out), the threshold will be 0.1
+// threshold also accepts an array of percentage like [0, 0.2, 0.5]
+const options = {
+  root: null, // viewport
+  rootMargin: '0px',
+  threshold: 0, // invoke callback as soon as image bottom enters or leaves the viewport
+};
+
+// Creating Observer:
+// Observer constructor accepts a Callback & options object
+const observer = new IntersectionObserver(callback, options);
+
+// Once you have created the observer, you need to give it a target element to watch:
+observer.observe(img);
