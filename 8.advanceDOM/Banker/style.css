@@ -686,3 +686,21 @@ h4 {
   font-weight: bold;
   color: wheat;
 }
+
+/* num dots for image slider */
+.num_dots {
+  text-align: center;
+  font-size: 20px;
+}
+
+.num_dots p {
+  display: inline;
+  cursor: pointer;
+  padding: 4px 15px;
+  border-radius: 65%;
+}
+
+.curr_slide {
+  color: white;
+  background-color: #ff0101;
+}
