@@ -210,8 +210,9 @@ allButtons[3].addEventListener('click', () =>
 // Scroll to top
 const scrollTop = document.getElementById('top-scroll');
 scrollTop.addEventListener('click', e => {
+  console.log('scroll clicked');
   e.preventDefault();
-  document.querySelector('nav').scrollIntoView({ behavior: 'smooth' });
+  document.querySelector('body').scrollIntoView({ behavior: 'smooth' });
 });
 
 // ////////////////////////////////////////
