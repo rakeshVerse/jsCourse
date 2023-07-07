@@ -542,3 +542,25 @@ const imgObserver = new IntersectionObserver(lazyLoad, {
 });
 
 imgObserver.observe(img);
+
+///////////////////////////////////////////////////////
+
+// Lifecycle DOM Events
+
+// when html & script are loaded
+// we don't need to wrap out entire JS in this listner if we add script at the very end of HTML body
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML parsed and DOM tree built!', e);
+});
+
+// when all the external resources are loaded (scripts, css, images)
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
+
+// when user leaves the site i.e. clicking on close tab button
+window.addEventListener('beforeunload', function (e) {
+  e.preventDefault();
+  console.log(e);
+  e.returnValue = '';
+});
