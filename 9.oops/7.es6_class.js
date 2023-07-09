@@ -14,6 +14,7 @@ class Person {
   }
 
   // Methods will be added to .prototype property of Person
+  // This methos are called as Instance Methods
   calcAge() {
     console.log(2050 - this.birthYear);
   }
