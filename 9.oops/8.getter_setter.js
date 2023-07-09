@@ -19,7 +19,7 @@ const account = {
   },
 
   // Setter
-  // Setter function accepts only one parameter
+  // Setter function must have only one parameter
   set latest(transac) {
     this.transactions.push(transac);
   },
