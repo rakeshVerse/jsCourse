@@ -46,6 +46,7 @@ EV.prototype.chargeBattery = function (chargeTo) {
   this.charge = chargeTo;
 };
 
+// Polymorphism - Overwriting accelerate()
 EV.prototype.accelerate = function () {
   this.speed += 20;
   --this.charge;
