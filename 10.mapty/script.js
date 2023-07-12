@@ -11,7 +11,23 @@ const btnDeleteAll = document.getElementById('delete_all');
 const btnSort = document.getElementById('sort');
 const btnShowAll = document.getElementById('show_all');
 const containerActionBtns = document.querySelector('.actions_container');
+
 ////////////////////////////////////////////////////////////////////////////
+
+// TO DO'S:
+//   - Edit workout
+//   - Fix empty localStorage problem in _getLocalStorage()
+//   - Display different markers for Running & Cycling
+//   - Rebuild Running & Cycling Objects after retriving from localStorage
+//   - Use more realistic error messages
+//   - Draw lines & shapes on map
+//   - Show position name like - Running in Faro, Portugal
+//   - Display weather
+//   - Optimize Code
+//   - Apply SOLID principle
+//   - Apply Design Ptterns
+
+//////////////////////////////////////////////////////////////////////////
 
 // WORKOUT DATA
 
@@ -127,6 +143,7 @@ class App {
     //     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
     // }).addTo(this.#map);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
@@ -145,7 +162,9 @@ class App {
     const markers = this.#workouts.map(workout => new L.Marker(workout.coords));
 
     // Fit Bounds in Viewport
-    this.#map.fitBounds(L.featureGroup(markers).getBounds().pad(0.5));
+    this.#map.fitBounds(L.featureGroup(markers).getBounds(), {
+      padding: L.point(40, 40),
+    });
 
     // Creating latlng object
     // var latlngs = [
