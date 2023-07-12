@@ -12,6 +12,18 @@
     />
 
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
 
     <script defer src="script.js"></script>
     <title>mapty // Map your workouts</title>
@@ -20,6 +32,16 @@
     <div class="sidebar">
       <img src="logo.png" alt="Logo" class="logo" />
 
+      <section class="actions_container hidden">
+        <button class="action action--show_all" id="show_all">
+          🔺 Show All
+        </button>
+        <button class="action action--sort" id="sort">🔺 Sort</button>
+        <button class="action action--delete_all" id="delete_all">
+          🗑️ Delete All
+        </button>
+      </section>
+      <br />
       <ul class="workouts">
         <form class="form hidden">
           <div class="form__row">
@@ -58,8 +80,17 @@
         </form>
 
         <!-- <li class="workout workout--running" data-id="1234567890">
-          <h2 class="workout__title">Running on April 14</h2>
+          <h2 class="workout__title">
+            Running on April 14
+            <section class="single_actions_container">
+              <button class="single_action single_action--edit">🖊️ Edit</button>
+              <button class="single_action single_action--delete">
+                ❌ Delete
+              </button>
+            </section>
+          </h2>
           <div class="workout__details">
+            ❌ 🖊️ 🗑️ ⬆️ 🔺 🔻 ⬇️
             <span class="workout__icon">🏃‍♂️</span>
             <span class="workout__value">5.2</span>
             <span class="workout__unit">km</span>

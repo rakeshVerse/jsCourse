@@ -218,3 +218,65 @@ a:visited {
 .cycling-popup .leaflet-popup-content-wrapper {
   border-left: 5px solid var(--color-brand--1);
 }
+
+.actions_container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  align-self: end;
+  /* transition: all 0.5s, transform 1ms; */
+}
+
+.actions_container.hidden {
+  display: none;
+  transition: opacity 0.5s ease;
+}
+
+.action {
+  font-size: 13px;
+  cursor: pointer;
+  width: fit-content;
+  border: none;
+  color: var(--color-light--2);
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.action--sort {
+  background-color: #1ddb8b;
+}
+
+.action--delete_all {
+  background-color: #d23434;
+}
+
+.action--show_all {
+  background-color: blueviolet;
+}
+
+.single_actions_container {
+  float: right;
+}
+
+.single_action {
+  cursor: pointer;
+  width: fit-content;
+  border: none;
+  color: white;
+  padding: 2px 10px;
+  background: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.single_action:hover {
+  text-decoration: underline;
+}
+
+.single_action--edit {
+}
+
+.single_action--delete {
+}
