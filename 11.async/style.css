@@ -20,19 +20,27 @@ body {
   justify-content: center;
 }
 
+h1 {
+  font-size: 35px;
+}
+
 .container {
   display: flex;
   flex-flow: column;
   align-items: center;
+  margin-top: 20px;
 }
 
 .countries {
   /* margin-bottom: 8rem; */
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 
   font-size: 2rem;
   opacity: 0;
   transition: opacity 1s;
+  margin-top: 40px;
 }
 
 .country {
@@ -42,6 +50,7 @@ body {
   width: 30rem;
   border-radius: 0.7rem;
   margin: 0 3rem;
+  margin-bottom: 40px;
   /* overflow: hidden; */
 }
 
