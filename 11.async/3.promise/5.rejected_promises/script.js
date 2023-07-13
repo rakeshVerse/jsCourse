@@ -49,8 +49,9 @@ const renderCountry = (country, className = '') => {
 // entire promise chain.
 
 // finally()
+// It only works on promises, catch() returns a Promise so we can attach finally() on the returned Promise
 // finally() block executes regardless of whether Promise resolves to Fullfilled or Rejected
-// This can be useful in e.g. showing loader
+// This can be useful in e.g. showing/hiding elements
 
 const getContryAndNeighbours = function (country) {
   // Ajax call 1: get country
