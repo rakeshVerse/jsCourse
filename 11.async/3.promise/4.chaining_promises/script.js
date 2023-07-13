@@ -1,6 +1,5 @@
 'use strict';
 
-const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
@@ -16,7 +15,7 @@ const renderCountry = (country, className = '') => {
   const populationInMillion = (population / 1000000).toFixed(1);
 
   const html = `
-  <article class="country">
+  <article class="country ${className}">
     <img class="country__img" src="${flags.png}" />
     <div class="country__data">
       <h3 class="country__name">${name.common} (${nativeName})</h3>
@@ -34,7 +33,28 @@ const renderCountry = (country, className = '') => {
 // Flat sequence of callbacks
 
 // Getting Country and its Neighbours
-const getContryAndNeighbours = function (country) {};
+// Second Ajax call is based on the data received by the First Ajax call
+const getContryAndNeighbours = function (country) {
+  // Ajax call 1: get country
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(res => res.json())
+    .then(res => {
+      renderCountry(res[0]);
+
+      // Get neighbours country code
+      const neighboursCode = res[0].borders ? res[0].borders.join(',') : null;
+      if (!neighboursCode) return;
+
+      // Ajax call 2: get neighbour countries using their country codes
+      // prettier-ignore
+      return fetch(`https://restcountries.com/v3.1/alpha?codes=${neighboursCode}`);
+    })
+    .then(res => (res ? res.json() : []))
+    .then(neighbours =>
+      neighbours.forEach(neighbour => renderCountry(neighbour, 'neighbour'))
+    );
+};
 
 getContryAndNeighbours('india');
+// getContryAndNeighbours('australia');
 // getContryAndNeighbours('brazil');
