@@ -1,8 +1,16 @@
 'use strict';
 
+const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
+const load = document.querySelector('.load');
 
 ///////////////////////////////////////
+
+const renderError = msg =>
+  countriesContainer.insertAdjacentText(
+    'beforeend',
+    `Something went wrong: ${msg} Please check your internet connection and try again!`
+  );
 
 const renderCountry = (country, className = '') => {
   const { flags, name, region, population, languages, currencies } = country;
@@ -26,14 +34,24 @@ const renderCountry = (country, className = '') => {
     </div>
   </article>`;
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
 };
 
-// CHAINING PROMISES
-// Flat sequence of callbacks
+// REJECTED PROMISES
 
-// Getting Country and its Neighbours
-// Second Ajax call is based on the data received by the First Ajax call
+// Errors can occure when making Ajax calls
+// On user end, user may lose the internet connnection
+// While on server end, Server may return an error in case, e.g. requested data not found or server is down, etc.
+
+// Suppose user loses internet connection, we can handle such condition:
+// 1. By passing one more callback to then(). So, the first callback of then is for fullfilled & second is for rejected response.
+// But we will have to attach a callback to each then()
+// 2. The better way to catch the error at the end of the promise chain. catch() will look for any error that occured in the
+// entire promise chain.
+
+// finally()
+// finally() block executes regardless of whether Promise resolves to Fullfilled or Rejected
+// This can be useful in e.g. showing loader
+
 const getContryAndNeighbours = function (country) {
   // Ajax call 1: get country
   fetch(`https://restcountries.com/v3.1/name/${country}`)
@@ -52,9 +70,21 @@ const getContryAndNeighbours = function (country) {
     .then(res => (res ? res.json() : []))
     .then(neighbours =>
       neighbours.forEach(neighbour => renderCountry(neighbour, 'neighbour'))
-    );
+    )
+    .catch(err => {
+      console.log(err.message); // -> NetworkError when attempting to fetch resource.
+
+      renderError(err.message);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1; // unhide container
+      load.style.opacity = 0; // hide loader
+    });
 };
 
-getContryAndNeighbours('india');
-// getContryAndNeighbours('australia');
-// getContryAndNeighbours('brazil');
+btn.addEventListener('click', function () {
+  load.style.opacity = 1;
+  getContryAndNeighbours('india');
+  // getContryAndNeighbours('australia');
+  // getContryAndNeighbours('brazil');
+});
