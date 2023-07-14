@@ -25,6 +25,16 @@ const countriesContainer = document.querySelector('.countries');
 // the Promise response body and converted into a JavaScript object.
 // This JavaScript object can then be used to access the data within your code.
 
+// Syntax:
+// fetch(url)
+//   .then(response => response.json())
+//   .then(data => {
+//     // Handle the response data
+//   })
+//   .catch(error => {
+//     // Handle any errors
+//   });
+
 const renderCountry = country => {
   const { flags, name, region, population, languages, currencies } = country;
   const nativeNames = Object.values(name.nativeName);

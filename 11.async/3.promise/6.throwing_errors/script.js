@@ -43,7 +43,7 @@ const renderCountry = (country, className = '') => {
 // While on server end, Server may return an error in case, e.g. requested data not found or server is down, etc.
 
 // Suppose data user requested is not found (i.e. looking for country that doesn't exists).
-// In, this case promise will still resolve to Fullfilled.
+// In, this case promise will still resolve to Fullfilled and Promise chain will continue resulting in unexpected errors.
 // In such case, handling the error using catch() won't show the actual error which is in this case (Country not found)
 // We need to throw the errors manually.
 // throwing error will reject the promise chain and execute the catch()

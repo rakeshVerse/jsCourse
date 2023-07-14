@@ -53,6 +53,19 @@ const renderCountry = (country, className = '') => {
 // finally() block executes regardless of whether Promise resolves to Fullfilled or Rejected
 // This can be useful in e.g. showing/hiding elements
 
+// Syntax:
+// fetch(url)
+//   .then(response => response.json())
+//   .then(data => {
+//     // Handle the response data
+//   })
+//   .catch(error => {
+//     // Handle any errors
+//   })
+//   .finally(() => {
+//     // This block execute regadless of whether promise resolves to Fulfilled or Rejected
+//   });
+
 const getContryAndNeighbours = function (country) {
   // Ajax call 1: get country
   fetch(`https://restcountries.com/v3.1/name/${country}`)
