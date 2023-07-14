@@ -22,6 +22,7 @@ const lotteryPromise = new Promise(function (resolve, reject) {
 // Consuming promise
 lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
+// PROMISIFYING
 // In practice, most of the time we only Consume Promises.
 // We usually only Build Promises to wrap old Callback based functions into Promises this is called as Promisifying.
 // So, Promisifying is converting Callback based asynchronous behaviour into Promise based.
@@ -62,3 +63,10 @@ setTimeout(() => {
     }, 1000);
   }, 1000);
 }, 1000);
+
+// IMMEDIATELY RESOLVING & REJECTING PROMISE
+// Call resolve & reject static methods directly on Promise constructor
+Promise.resolve('Hello').then(res => console.log(res));
+Promise.reject(new Error('An error occurred!')).catch(err =>
+  console.error(err)
+);
