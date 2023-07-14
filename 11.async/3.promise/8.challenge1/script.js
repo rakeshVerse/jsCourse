@@ -29,12 +29,9 @@ const position = document.getElementById('pos');
 
 ///////////////////////////////////////
 
-const renderError = function (msg) {
-  countriesContainer.insertAdjacentText(
-    'beforeend',
-    `An error occurred! ${msg}.`
-  );
-};
+// prettier-ignore
+const renderError =  (msg) =>
+  countriesContainer.insertAdjacentText('beforeend',`An error occurred! ${msg}`)
 
 const renderCountry = (country, className = '') => {
   const { flags, name, region, population, languages, currencies } = country;
@@ -59,44 +56,47 @@ const renderCountry = (country, className = '') => {
   countriesContainer.insertAdjacentHTML('beforeend', html);
 };
 
-const getCountry = countr => {
-  let country = 'australia';
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
+// Make an Ajax call to get provided country's details & return JSON
+const getCountryJSON = function (resource, errMsg) {
+  return fetch(`https://restcountries.com/v3.1/${resource}`).then(res => {
+    if (!res.ok) throw new Error(`${errMsg} (Status: ${res.status}).`);
+    return res.json();
+  });
+};
+
+const getCountry = country => {
+  return getCountryJSON(
+    `name/${country}`,
+    `Country with name '${country}' not found`
+  )
     .then(res => {
-      if (!res.ok) throw new Error(`Country with name '${country}' not found`);
-      return res.json();
-    })
-    .then(res => {
+      // Display contry
       renderCountry(res[0]);
-      const neighbours = res[0].borders ? res[0].borders.join(',') : null;
-      if (!neighbours)
+
+      // Get country's neighbours codes
+      const neighboursCodes = res[0].borders ? res[0].borders.join(',') : null;
+      if (!neighboursCodes)
         throw new Error(
-          `${country.toUpperCase()} doesn't have any neighbouring country`
+          `${country.toUpperCase()} doesn't have any neighbouring country.`
         );
-      return fetch(`https://restcountries.com/v3.1/alpha?codes=${neighbours}`);
-    })
-    .then(res => {
-      if (!res.ok)
-        throw new Error(
-          `Country with given code not found (Status: ${res.status})`
-        );
-      return res.json();
+
+      // Get neighbours using their country code
+      return getCountryJSON(
+        `alpha?codes=${neighboursCodes}`,
+        `Country with given code not found`
+      );
     })
     .then(neighbours =>
       neighbours.forEach(neighbour => renderCountry(neighbour, 'neighbour'))
-    )
-    .catch(err => renderError(err.message))
-    .finally(() => {
-      countriesContainer.style.opacity = 1;
-      load.style.display = 'none';
-    });
+    );
 };
 
+// Reverse geocoding: Get position details using co-ordinates
 const whereAmI = function (lat, lng) {
   fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
     .then(res => res.json())
-    .then(res => {
-      const { city, country } = res;
+    .then(geoData => {
+      const { city, country } = geoData;
 
       // If limit exceeded throw error
       if (city === 'Throttled! See geocode.xyz/pricing')
@@ -104,7 +104,8 @@ const whereAmI = function (lat, lng) {
 
       position.textContent = `You are in ${city}, ${country}`;
 
-      getCountry(country);
+      // Get country details
+      return getCountry(country);
     })
     .catch(err => renderError(err.message))
     .finally(() => {
@@ -117,7 +118,8 @@ btn.addEventListener('click', function () {
   countriesContainer.textContent = '';
   position.textContent = '';
   load.style.display = 'contents';
-  // whereAmI(52.508, 13.381);
+
+  whereAmI(52.508, 13.381);
   // whereAmI(19.037, 72.873);
-  whereAmI(-33.933, 18.474);
+  // whereAmI(-33.933, 18.474);
 });
