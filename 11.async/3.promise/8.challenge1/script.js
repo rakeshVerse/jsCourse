@@ -64,27 +64,25 @@ const getCountryJSON = function (resource, errMsg) {
   });
 };
 
-const getCountry = country => {
-  return getCountryJSON(
-    `name/${country}`,
-    `Country with name '${country}' not found`
-  )
+// Get country & its neighbours and display them
+const getCountryAndNeighbours = country => {
+  // prettier-ignore
+  return getCountryJSON(`name/${country}`, `Country with name '${country}' not found`)
     .then(res => {
       // Display contry
       renderCountry(res[0]);
 
       // Get country's neighbours codes
+      // prettier-ignore
       const neighboursCodes = res[0].borders ? res[0].borders.join(',') : null;
       if (!neighboursCodes)
         throw new Error(
           `${country.toUpperCase()} doesn't have any neighbouring country.`
         );
 
-      // Get neighbours using their country code
-      return getCountryJSON(
-        `alpha?codes=${neighboursCodes}`,
-        `Country with given code not found`
-      );
+      // Get neighbour countries using their country code
+      // prettier-ignore
+      return getCountryJSON(`alpha?codes=${neighboursCodes}`,`Could not find neighbouring countries`);
     })
     .then(neighbours =>
       neighbours.forEach(neighbour => renderCountry(neighbour, 'neighbour'))
@@ -104,8 +102,8 @@ const whereAmI = function (lat, lng) {
 
       position.textContent = `You are in ${city}, ${country}`;
 
-      // Get country details
-      return getCountry(country);
+      // Get country and its neighbours
+      return getCountryAndNeighbours(country);
     })
     .catch(err => renderError(err.message))
     .finally(() => {
@@ -119,7 +117,7 @@ btn.addEventListener('click', function () {
   position.textContent = '';
   load.style.display = 'contents';
 
-  whereAmI(52.508, 13.381);
-  // whereAmI(19.037, 72.873);
+  // whereAmI(52.508, 13.381);
+  whereAmI(19.037, 72.873);
   // whereAmI(-33.933, 18.474);
 });
