@@ -7,21 +7,20 @@
 // Syntax:
 // const newPromise = new Promise(function (resolve, reject) {});
 
-// Example I
 // Simulating Lottery
-// const lotteryPromise = new Promise(function (resolve, reject) {
-//   setTimeout(function () {
-//     // If random number >= 0.5 then win else lose
-//     if (Math.random() >= 0.5) {
-//       resolve(`You WIN!!! 💰`);
-//     } else {
-//       reject(new Error(`You LOSE!!! 💩`));
-//     }
-//   }, 2000);
-// });
+const lotteryPromise = new Promise(function (resolve, reject) {
+  setTimeout(function () {
+    // If random number >= 0.5 then win else lose
+    if (Math.random() >= 0.5) {
+      resolve(`You WIN!!! 💰`);
+    } else {
+      reject(new Error(`You LOSE!!! 💩`));
+    }
+  }, 2000);
+});
 
 // Consuming promise
-// lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
 // In practice, most of the time we only Consume Promises.
 // We usually only Build Promises to wrap old Callback based functions into Promises this is called as Promisifying.
