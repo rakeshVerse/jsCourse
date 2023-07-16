@@ -7,9 +7,17 @@ const position = document.getElementById('pos');
 
 ///////////////////////////////////////
 
-// ASYNC AWAIT
+// ASYNC/AWAIT
 // Async...Await is introduced in ES2017. It is better way of Consuming Promises.
-// However, it's just Syntatic Sugar over the then() method
+// However, it's just Syntatic Sugar over the then() method.
+// ASYNC/AWAIT enables asynchronous, promise - based behavior to be written in a cleaner style and avoiding
+// the need to explicitly configure promise chains.
+
+// Inside an async function, we can use the await keyword before a call to a function that returns a promise.
+// This makes the code wait at that point until the promise is settled, at which point the fulfilled value of
+// the promise is treated as a return value, or the rejected value is thrown.
+// This enables us to write code that uses asynchronous functions but looks like synchronous code.
+
 // Async functions always retruns a Promise
 
 // prettier-ignore
