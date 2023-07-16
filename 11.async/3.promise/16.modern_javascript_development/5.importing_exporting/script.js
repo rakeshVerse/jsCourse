@@ -22,7 +22,7 @@
 
 // // Import everything
 
-// // It returns an Object containing all the exports
+// // Returns an Object containing all the exports
 // import * as shoppingCart from './shoppingCart.js';
 // console.log(shoppingCart);
 // /** ->
