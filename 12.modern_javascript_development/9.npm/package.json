@@ -1,0 +1,16 @@
+{
+  "name": "9.npm",
+  "version": "1.0.0",
+  "description": "Learning how to use NPM",
+  "main": "script.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rakesh R.",
+  "license": "ISC",
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "lodash": "^4.17.21"
+  }
+}
