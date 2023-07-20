@@ -46,6 +46,7 @@ const checkExpenses = (state, limits) =>
   state.map(entry => entry.value < -getLimit(entry.user, limits) ? {...entry, flag: 'limit'} : entry);
 const finalBudget = checkExpenses(newBudget3, spendingLimits);
 
+// Impure Function
 const logBigExpenses = function (state, bigLimit) {
   const bigExpenses = state
     .filter(entry => entry.value <= -bigLimit)
@@ -53,6 +54,6 @@ const logBigExpenses = function (state, bigLimit) {
     .join(' / ');
   // .reduce((str, curr) => `  ${str} / ${curr.description.slice(-2)}`, '');
 
-  console.log(bigExpenses);
+  console.log(bigExpenses); // side effect
 };
 logBigExpenses(finalBudget, 1000);
