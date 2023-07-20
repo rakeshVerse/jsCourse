@@ -716,8 +716,11 @@ const showRecipe = async function() {
 };
 showRecipe();
 // Event Listeners
-window.addEventListener("hashchange", showRecipe);
-window.addEventListener("load", showRecipe);
+// Show recipe on hashchange and page load
+[
+    "hashchange",
+    "load"
+].forEach((ev)=>window.addEventListener(ev, showRecipe));
 
 },{"url:../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","core-js/modules/esnext.symbol.dispose.js":"b9ez5","core-js/modules/web.immediate.js":"49tUX"}],"loVOp":[function(require,module,exports) {
 module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
