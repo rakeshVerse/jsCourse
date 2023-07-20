@@ -1,14 +1,18 @@
 'use strict';
 
-import icons from 'url:../img/icons.svg';
+import icons from 'url:../img/icons.svg'; // icons
+import 'core-js/actual'; // polyfill
+import 'regenerator-runtime/runtime.js'; // polyfill Async/Await
 
 ///////////////////////////////////////////////////
+
 // hot reload
 if (module.hot) {
   module.hot.accept();
 }
 
 /////////////////////////////////////////////////////
+
 const recipeContainer = document.querySelector('.recipe');
 
 const timeout = function (s) {
@@ -22,6 +26,7 @@ const timeout = function (s) {
 // https://forkify-api.herokuapp.com/v2
 
 ///////////////////////////////////////
+
 const renderSpinner = parentEl => {
   const markup = `<div class="spinner">
       <svg>
@@ -33,16 +38,17 @@ const renderSpinner = parentEl => {
   parentEl.insertAdjacentHTML('afterbegin', markup);
 };
 
-// prettier-ignore
 const showRecipe = async function () {
   try {
-    renderSpinner(recipeContainer)
+    renderSpinner(recipeContainer);
+
     // 1. Load Recipe
-    const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886`)
-    const data = await res.json()
-    if(!res.ok) throw new Error(`${data.message} (${res.status})`)
-    
-    let {recipe} = data.data;
+    // prettier-ignore
+    const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+
+    let { recipe } = data.data;
     recipe = {
       id: recipe.id,
       publisher: recipe.publisher,
@@ -52,7 +58,7 @@ const showRecipe = async function () {
       title: recipe.title,
       servings: recipe.servings,
       cookingTime: recipe.cooking_time,
-    }
+    };
 
     // 2. Render Recipe
     const markup = `
@@ -111,9 +117,10 @@ const showRecipe = async function () {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-        ${recipe.ingredients.map(
-          ingredient =>
-          `<li class="recipe__ingredient">
+        ${recipe.ingredients
+          .map(
+            ingredient =>
+              `<li class="recipe__ingredient">
             <svg class="recipe__icon">
               <use href="${icons}#icon-check"></use>
             </svg>
@@ -123,7 +130,8 @@ const showRecipe = async function () {
               ${ingredient.description}
             </div>
           </li>`
-        ).join('')}
+          )
+          .join('')}
         </ul>
       </div>
 
@@ -147,12 +155,12 @@ const showRecipe = async function () {
           </svg>
         </a>
       </div>`;
-    
-    recipeContainer.innerHTML = ''
-    recipeContainer.insertAdjacentHTML('afterbegin', markup)
+
+    recipeContainer.innerHTML = '';
+    recipeContainer.insertAdjacentHTML('afterbegin', markup);
   } catch (error) {
     console.error(error.message);
   }
-}
+};
 
 showRecipe();
