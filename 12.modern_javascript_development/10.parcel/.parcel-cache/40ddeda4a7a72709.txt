@@ -1984,7 +1984,7 @@
 127/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/optimizer-svgo/src/SVGOOptimizer.js1689602523663212700 0
 122/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@swc/helpers/lib/_wrap_native_super.js1689602529275668700 0
 110/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/optimizer-svgo/src1689602523567555200 1
-86/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/dist/index.html1689606406837182300 0
+86/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/dist/index.html1689607278951710300 0
 119/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/optimizer-svgo/package.json1689602523797531100 0
 130/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/csso/node_modules/css-tree/lib/syntax/function1689602550188133000 1
 110/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/workers/lib/bus.js1689602523761197400 0
@@ -3473,7 +3473,7 @@
 146/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/optimizer-htmlnano/node_modules/csso/lib/clean/Rule.js1689602558460751700 0
 124/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/caniuse-lite/data/features/websockets.js1689602531289902800 0
 144/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/csso/node_modules/css-tree/lib/syntax/function/expression.js1689602549654602600 0
-93/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/dist/index.8cfc62b9.js1689606406153159200 0
+93/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/dist/index.8cfc62b9.js1689664005181297500 0
 119/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/css-tree/lib/syntax/node/Comment.js1689602528972297600 0
 115/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/workers/src/cpuCount.js1689602525606067900 0
 107/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/types/unsafe.js1689602524177546800 0
@@ -4171,7 +4171,7 @@
 114/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/escape-string-regexp/readme.md1689602523501303100 0
 126/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/transformer-react-refresh-wrap/lib1689602524497227700 1
 139/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/css-select/node_modules/domutils/lib/esm/stringify.d.ts1689602549994301000 0
-80/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/parcel.md1689606540202296500 0
+80/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/parcel.md1689607036046634600 0
 102/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/msgpackr/unpack.js1689602542035142700 0
 141/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/@parcel/optimizer-htmlnano/node_modules/svgo/lib/style.js1689602562997177800 0
 137/mnt/Study/Code/jsWithJonas/12.modern_javascript_development/10.parcel/node_modules/csso/node_modules/css-tree/lib/syntax/node/AnPlusB.js1689602548015303800 0
