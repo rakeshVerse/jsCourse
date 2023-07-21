@@ -4,7 +4,7 @@ import { Fraction } from 'fractional';
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data;
-  #error;
+  #error = `We could not find that recipe. Please try another one!`;
   #message;
 
   render(data) {
@@ -24,6 +24,34 @@ class RecipeView {
         <use href="${icons}#icon-loader"></use>
       </svg>
     </div>`;
+    this.#clearParentElement();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  renderError(messsage = this.#error) {
+    const markup = `
+      <div class="error">
+        <div>
+          <svg>
+            <use href="${icons}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${messsage}</p>
+      </div>`;
+    this.#clearParentElement();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  renderMessage(message = this.#message) {
+    const markup = `
+      <div class="message">
+        <div>
+          <svg>
+            <use href="${icons}#icon-smile"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>`;
     this.#clearParentElement();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
