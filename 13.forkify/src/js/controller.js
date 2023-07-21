@@ -3,19 +3,10 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 
-import icons from 'url:../img/icons.svg'; // icons
 import 'core-js/actual'; // polyfill
 import 'regenerator-runtime/runtime.js'; // polyfill Async/Await
 
 /////////////////////////////////////////////////////
-
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
-  });
-};
 
 ///////////////////////////////////////
 
@@ -38,10 +29,11 @@ const controlRecipes = async function () {
 
 ////////////////////////////////////////////////////////
 
-// Event Listeners
-// Show recipe on hashchange and page load
-['hashchange', 'load'].forEach(ev =>
-  window.addEventListener(ev, controlRecipes)
-);
+// Subscriber
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes);
+};
+
+init();
 
 ///////////////////////////////////////////////////////

@@ -4,6 +4,8 @@ import { Fraction } from 'fractional';
 class RecipeView {
   #parentElement = document.querySelector('.recipe');
   #data;
+  #error;
+  #message;
 
   render(data) {
     this.#data = data;
@@ -123,6 +125,12 @@ class RecipeView {
           </svg>
         </a>
       </div>`;
+  }
+
+  // Publisher
+  addHandlerRender(handler) {
+    // Show recipe on hashchange and page load
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 }
 
