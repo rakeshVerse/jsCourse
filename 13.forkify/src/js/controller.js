@@ -2,13 +2,15 @@
 
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js';
+import resultsView from './views/resultsView.js';
 
 import 'core-js/actual'; // polyfill
 import 'regenerator-runtime/runtime.js'; // polyfill Async/Await
 
-/////////////////////////////////////////////////////
-
-///////////////////////////////////////
+if (module.hot) {
+  module.hot.accept();
+}
 
 const controlRecipes = async function () {
   try {
@@ -27,11 +29,29 @@ const controlRecipes = async function () {
   }
 };
 
+const controlSearchResults = async function () {
+  try {
+    resultsView.renderSpinner();
+
+    // Get search query
+    const query = searchView.getQuery();
+
+    // Load Search Results
+    await model.loadSearchResults(query);
+
+    // Render Search Results
+    resultsView.render(model.state.search.results);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 ////////////////////////////////////////////////////////
 
-// Subscriber
 const init = function () {
+  // Subscribers
   recipeView.addHandlerRender(controlRecipes);
+  searchView.addHandlerSearch(controlSearchResults);
 };
 
 init();
