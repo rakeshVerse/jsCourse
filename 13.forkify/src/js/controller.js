@@ -4,13 +4,14 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import paginationView from './views/paginationView.js';
 
 import 'core-js/actual'; // polyfill
 import 'regenerator-runtime/runtime.js'; // polyfill Async/Await
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 const controlRecipes = async function () {
   try {
@@ -35,25 +36,34 @@ const controlSearchResults = async function () {
 
     // Get search query
     const query = searchView.getQuery();
+    if (!query) return;
 
     // Load Search Results
     await model.loadSearchResults(query);
 
     // Render Search Results
-    resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultsPage());
+
+    // Render Initial Pagination Buttons
+    paginationView.render(model.state.search);
   } catch (err) {
     console.error(err);
   }
 };
 
-////////////////////////////////////////////////////////
+const controlPagination = function (page) {
+  // Render Search Results
+  resultsView.render(model.getSearchResultsPage(page));
+
+  // Update Pagination Buttons
+  paginationView.render(model.state.search);
+};
 
 const init = function () {
   // Subscribers
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerPagination(controlPagination);
 };
 
 init();
-
-///////////////////////////////////////////////////////
