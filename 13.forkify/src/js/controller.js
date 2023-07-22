@@ -52,10 +52,10 @@ const controlSearchResults = async function () {
 };
 
 const controlPagination = function (page) {
-  // Render Search Results
+  // Render NEW Search Results
   resultsView.render(model.getSearchResultsPage(page));
 
-  // Update Pagination Buttons
+  // Render NEW Pagination Buttons
   paginationView.render(model.state.search);
 };
 

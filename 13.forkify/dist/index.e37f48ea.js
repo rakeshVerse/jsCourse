@@ -620,9 +620,9 @@ const controlSearchResults = async function() {
     }
 };
 const controlPagination = function(page) {
-    // Render Search Results
+    // Render NEW Search Results
     (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(page));
-    // Update Pagination Buttons
+    // Render NEW Pagination Buttons
     (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
 const controlUpdateServings = function(updateTo) {
