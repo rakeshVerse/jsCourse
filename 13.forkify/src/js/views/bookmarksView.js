@@ -11,6 +11,10 @@ class BookmarksView extends View {
       .map(bookmarks => previewView.render(bookmarks, false))
       .join('');
   }
+
+  addHandlerPersistBookmarks(handler) {
+    window.addEventListener('load', handler);
+  }
 }
 
 export default new BookmarksView();

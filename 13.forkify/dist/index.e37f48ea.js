@@ -646,8 +646,12 @@ const controlBookmark = function() {
     // Render bookmark
     (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
 };
+const controlPersistBookmarks = function() {
+    (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
+};
 const init = function() {
     // Subscribers
+    (0, _bookmarksViewJsDefault.default).addHandlerPersistBookmarks(controlPersistBookmarks);
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _recipeViewJsDefault.default).addHandlerUpdateServings(controlUpdateServings);
     (0, _recipeViewJsDefault.default).addHandlerBookmark(controlBookmark);
@@ -2567,11 +2571,16 @@ const updateServings = function(newServing) {
     // Update serving
     state.recipe.servings = newServing;
 };
+const persistBookmarks = function() {
+    localStorage.setItem("bookmarks", JSON.stringify(state.bookmarks));
+};
 const addBookmark = function(recipe) {
     // Add bookmark to bookmarks[]
     state.bookmarks.push(recipe);
     // Mark recipe as bookmarked
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+    // Store bookmark in local storage
+    persistBookmarks();
 };
 const deleteBookmark = function(id) {
     // Remove recipe from bookmarks[]
@@ -2579,7 +2588,15 @@ const deleteBookmark = function(id) {
     state.bookmarks.splice(index, 1);
     // Mark recipe as bookmarked
     if (id === state.recipe.id) state.recipe.bookmarked = false;
+    // Store bookmark in local storage
+    persistBookmarks();
 };
+const init = function() {
+    const storage = localStorage.getItem("bookmarks");
+    if (storage) state.bookmarks = JSON.parse(storage);
+};
+init();
+console.log(state.bookmarks);
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers.js":"hGI1E","./config.js":"k5Hzs"}],"hGI1E":[function(require,module,exports) {
 // Helper Functions
@@ -2755,6 +2772,9 @@ class BookmarksView extends (0, _viewJsDefault.default) {
     _error = `No bookmarks yet. Find a nice recipe and bookmark it ;)`;
     _generateMarkup() {
         return this._data.map((bookmarks)=>(0, _previewViewJsDefault.default).render(bookmarks, false)).join("");
+    }
+    addHandlerPersistBookmarks(handler) {
+        window.addEventListener("load", handler);
     }
 }
 exports.default = new BookmarksView();
