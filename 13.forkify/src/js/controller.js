@@ -5,6 +5,7 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import bookmarksView from './views/bookmarksView.js';
 
 import 'core-js/actual'; // polyfill
 import 'regenerator-runtime/runtime.js'; // polyfill Async/Await
@@ -71,19 +72,23 @@ const controlUpdateServings = function (updateTo) {
   }
 };
 
-const controlBookmarks = function () {
+const controlBookmark = function () {
+  // Add/Remove bookmark
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   else model.deleteBookmark(model.state.recipe.id);
 
-  // Update UI
+  // Update recipe view
   recipeView.render(model.state.recipe);
+
+  // Render bookmark
+  bookmarksView.render(model.state.bookmarks);
 };
 
 const init = function () {
   // Subscribers
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlUpdateServings);
-  recipeView.addHandlerBookmark(controlBookmarks);
+  recipeView.addHandlerBookmark(controlBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
 };
