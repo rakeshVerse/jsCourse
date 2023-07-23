@@ -605,10 +605,10 @@ const controlRecipes = async function() {
 };
 const controlSearchResults = async function() {
     try {
-        (0, _resultsViewJsDefault.default).renderSpinner();
         // Get search query
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
+        (0, _resultsViewJsDefault.default).renderSpinner();
         // Load Search Results
         await _modelJs.loadSearchResults(query);
         // Render Search Results
@@ -635,10 +635,17 @@ const controlUpdateServings = function(updateTo) {
         console.error(err);
     }
 };
+const controlBookmarks = function() {
+    if (!_modelJs.state.recipe.bookmarked) _modelJs.addBookmark(_modelJs.state.recipe);
+    else _modelJs.deleteBookmark(_modelJs.state.recipe.id);
+    // Update UI
+    (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+};
 const init = function() {
     // Subscribers
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     (0, _recipeViewJsDefault.default).addHandlerUpdateServings(controlUpdateServings);
+    (0, _recipeViewJsDefault.default).addHandlerBookmark(controlBookmarks);
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     (0, _paginationViewJsDefault.default).addHandlerPagination(controlPagination);
 };
@@ -2064,9 +2071,9 @@ class RecipeView extends (0, _viewJsDefault.default) {
 
         <div class="recipe__user-generated">
         </div>
-        <button class="btn--round">
+        <button class="btn--round btn--bookmark">
           <svg class="">
-            <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
+            <use href="${0, _iconsSvgDefault.default}#icon-bookmark${this._data.bookmarked ? "-fill" : ""}"></use>
           </svg>
         </button>
       </div>
@@ -2122,6 +2129,13 @@ class RecipeView extends (0, _viewJsDefault.default) {
             if (!btn) return;
             const { updateTo } = btn.dataset;
             if (+updateTo > 0) handler(+updateTo);
+        });
+    }
+    addHandlerBookmark(handler) {
+        this._parentElement.addEventListener("click", function(e) {
+            const btn = e.target.closest(".btn--bookmark");
+            if (!btn) return;
+            handler();
         });
     }
 }
@@ -2482,6 +2496,8 @@ parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
+parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
+parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark);
 var _helpersJs = require("./helpers.js");
 var _configJs = require("./config.js");
 const state = {
@@ -2491,7 +2507,8 @@ const state = {
         resultsPerPage: (0, _configJs.RES_PER_PAGE),
         currentPage: 1,
         results: []
-    }
+    },
+    bookmarks: []
 };
 const loadRecipe = async function(id) {
     try {
@@ -2507,6 +2524,8 @@ const loadRecipe = async function(id) {
             servings: recipe.servings,
             cookingTime: recipe.cooking_time
         };
+        if (state.bookmarks.some((rec)=>rec.id === id)) state.recipe.bookmarked = true;
+        else state.recipe.bookmarked = false;
     } catch (err) {
         throw err;
     }
@@ -2523,6 +2542,7 @@ const loadSearchResults = async function(query) {
                 title: rec.title
             };
         });
+        state.search.currentPage = 1;
     } catch (err) {
         console.error(err);
     }
@@ -2540,6 +2560,19 @@ const updateServings = function(newServing) {
     });
     // Update serving
     state.recipe.servings = newServing;
+};
+const addBookmark = function(recipe) {
+    // Add bookmark to bookmarks[]
+    state.bookmarks.push(recipe);
+    // Mark recipe as bookmarked
+    if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+const deleteBookmark = function(id) {
+    // Remove recipe from bookmarks[]
+    const index = state.bookmarks.findIndex((rec)=>rec.id === id);
+    state.bookmarks.splice(index, 1);
+    // Mark recipe as bookmarked
+    if (id === state.recipe.id) state.recipe.bookmarked = false;
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers.js":"hGI1E","./config.js":"k5Hzs"}],"hGI1E":[function(require,module,exports) {
