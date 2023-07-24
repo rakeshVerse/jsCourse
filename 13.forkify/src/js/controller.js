@@ -6,7 +6,9 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import addRecipeView from './views/addRecipeView.js';
 
+import { CLOSE_TIMEOUT } from './config.js';
 import 'core-js/actual'; // polyfill
 import 'regenerator-runtime/runtime.js'; // polyfill Async/Await
 
@@ -88,6 +90,36 @@ const controlPersistBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+const controlAddRecipe = async function (newRecipe) {
+  try {
+    // Render spinner
+    addRecipeView.renderSpinner();
+
+    // Upload new recipe
+    await model.addNewRecipe(newRecipe);
+
+    // Success message
+    addRecipeView.renderMessage();
+
+    // Render recipe
+    recipeView.render(model.state.recipe);
+
+    // Render Bookmark
+    bookmarksView.render(model.state.bookmarks);
+
+    // Add ID in URL
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
+    // Close Window
+    setTimeout(function () {
+      addRecipeView._toggleWindow();
+    }, CLOSE_TIMEOUT * 1000);
+  } catch (err) {
+    console.log(err);
+    addRecipeView.renderError(err.message);
+  }
+};
+
 const init = function () {
   // Subscribers
   bookmarksView.addHandlerPersistBookmarks(controlPersistBookmarks);
@@ -96,5 +128,6 @@ const init = function () {
   recipeView.addHandlerBookmark(controlBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
+  addRecipeView._addHandlerUpload(controlAddRecipe);
 };
 init();
