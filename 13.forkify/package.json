@@ -18,5 +18,6 @@
     "core-js": "^3.31.1",
     "fractional": "^1.0.0",
     "regenerator-runtime": "^0.13.11"
-  }
+  },
+  "main": "index.js"
 }
