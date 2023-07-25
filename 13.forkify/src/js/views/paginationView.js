@@ -22,18 +22,18 @@ class PaginationView extends View {
 
     // Page 1 & other pages -> show next button
     if (totPages > 1 && currPage === 1) {
-      return this._generateMarkupButtonNext(nextPage);
+      return this._generateMarkupButton('next', nextPage);
     }
 
     // Last page -> show previous button
     if (totPages === currPage && totPages > 1) {
-      return this._generateMarkupButtonPrev(prevPage);
+      return this._generateMarkupButton('prev', prevPage);
     }
 
     // Other than page 1 -> show previous & next button
     if (currPage > 1) {
       // prettier-ignore
-      return `${this._generateMarkupButtonPrev(prevPage)} ${this._generateMarkupButtonNext(nextPage)}`;
+      return `${this._generateMarkupButton('prev', prevPage)} ${this._generateMarkupButton('next', nextPage)}`;
     }
 
     // Page 1 & no other pages -> don't show any buttons
@@ -41,29 +41,33 @@ class PaginationView extends View {
   }
 
   /**
-   *
-   * @param {*} prev
-   * @returns
+   * Generates Pagination button
+   * @param {string} direction Direction (next or prev) of buttons to be generated
+   * @param {number} page Display page number to go to
+   * @returns {string} Button markup
    */
-  _generateMarkupButtonPrev(prev) {
+  _generateMarkupButton(direction, page) {
+    const arrowLeft =
+      direction === 'prev'
+        ? `<svg class="search__icon">
+        <use href="${icons}#icon-arrow-left"></use>
+      </svg>`
+        : '';
+
+    const arrowRight =
+      direction === 'next'
+        ? `<svg class="search__icon">
+        <use href="${icons}#icon-arrow-right"></use>
+      </svg>`
+        : '';
+
     return `
-      <button class="btn--inline pagination__btn--prev" data-goto="${prev}">
-        <svg class="search__icon">
-          <use href="${icons}#icon-arrow-left"></use>
-        </svg>
-        <span>Page ${prev}</span>
+      <button class="btn--inline pagination__btn--${direction}" data-goto="${page}">
+        ${arrowLeft}
+        <span>Page ${page}</span>
+        ${arrowRight}
       </button>
       `;
-  }
-
-  _generateMarkupButtonNext(next) {
-    return `
-      <button class="btn--inline pagination__btn--next" data-goto="${next}">
-        <span>Page ${next}</span>
-        <svg class="search__icon">
-          <use href="${icons}#icon-arrow-right"></use>
-        </svg>
-      </button>`;
   }
 
   /**
