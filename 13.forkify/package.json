@@ -5,7 +5,7 @@
   "source": "index.html",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build"
+    "build": "parcel build --dist-dir public"
   },
   "author": "Rakesh R.",
   "license": "ISC",
@@ -19,5 +19,5 @@
     "fractional": "^1.0.0",
     "regenerator-runtime": "^0.13.11"
   },
-  "main": "index.js"
+  "default": "index.html"
 }
