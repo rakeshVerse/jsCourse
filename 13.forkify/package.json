@@ -19,5 +19,5 @@
     "fractional": "^1.0.0",
     "regenerator-runtime": "^0.13.11"
   },
-  "default": "index.html"
+  "default": "index.js"
 }
