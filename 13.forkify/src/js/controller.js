@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Main application file.
+ */
+
 'use strict';
 
 import * as model from './model.js';
@@ -12,12 +16,13 @@ import { CLOSE_TIMEOUT } from './config.js';
 import 'core-js/actual'; // polyfill
 import 'regenerator-runtime/runtime.js'; // polyfill Async/Await
 
-// if (module.hot) {
-//   module.hot.accept();
-// }
-
+/**
+ * Controller function to handle loading and rendering a recipe.
+ * @async
+ */
 const controlRecipes = async function () {
   try {
+    // Get the ID from the URL hash
     const id = window.location.hash.slice(1);
     if (!id) return;
 
@@ -33,6 +38,10 @@ const controlRecipes = async function () {
   }
 };
 
+/**
+ * Controller function to handle searching for recipes.
+ * @async
+ */
 const controlSearchResults = async function () {
   try {
     // Get search query
@@ -54,6 +63,10 @@ const controlSearchResults = async function () {
   }
 };
 
+/**
+ * Controller function to handle pagination.
+ * @param {number} page - The page number to render.
+ */
 const controlPagination = function (page) {
   // Render NEW Search Results
   resultsView.render(model.getSearchResultsPage(page));
@@ -62,6 +75,10 @@ const controlPagination = function (page) {
   paginationView.render(model.state.search);
 };
 
+/**
+ * Controller function to handle updating recipe servings.
+ * @param {number} updateTo - The number of servings to update to.
+ */
 const controlUpdateServings = function (updateTo) {
   try {
     // Update State
@@ -74,6 +91,9 @@ const controlUpdateServings = function (updateTo) {
   }
 };
 
+/**
+ * Controller function to handle bookmarking a recipe.
+ */
 const controlBookmark = function () {
   // Add/Remove bookmark
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
@@ -86,10 +106,18 @@ const controlBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+/**
+ * Controller function to render bookmarks when the page is loaded
+ */
 const controlPersistBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+/**
+ * Controller function to handle adding a new recipe.
+ * @async
+ * @param {Object} newRecipe - The new recipe object to be uploaded.
+ */
 const controlAddRecipe = async function (newRecipe) {
   try {
     // Render spinner
@@ -120,14 +148,16 @@ const controlAddRecipe = async function (newRecipe) {
   }
 };
 
+/**
+ * Initialize the application.by passing Subscribers functions as parameter to Publishers functions to handle events
+ */
 const init = function () {
-  // Subscribers
   bookmarksView.addHandlerPersistBookmarks(controlPersistBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlUpdateServings);
   recipeView.addHandlerBookmark(controlBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerPagination(controlPagination);
-  addRecipeView._addHandlerUpload(controlAddRecipe);
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 init();

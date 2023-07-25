@@ -1,6 +1,17 @@
 import { AJAX } from './helpers.js';
 import { API_URL, KEY, RES_PER_PAGE } from './config.js';
 
+/**
+ * Represents the application state.
+ * @typedef {Object} State
+ * @property {Object} recipe - The current recipe object.
+ * @property {Object} search - The search-related information.
+ * @property {string} search.query - The search query.
+ * @property {number} search.resultsPerPage - The number of results per page in search.
+ * @property {number} search.currentPage - The current page number in search results.
+ * @property {Object[]} search.results - An array of search results.
+ * @property {Object[]} bookmarks - An array of bookmarked recipes.
+ */
 export const state = {
   recipe: {},
   search: {
@@ -12,6 +23,11 @@ export const state = {
   bookmarks: [],
 };
 
+/**
+ * Function to create a recipe object from the received data.
+ * @param {Object} data - The data received from the API.
+ * @returns {Object} - The created recipe object.
+ */
 const createRecipeObject = function (data) {
   const { recipe } = data.data;
   return {
@@ -27,6 +43,11 @@ const createRecipeObject = function (data) {
   };
 };
 
+/**
+ * Loads a recipe with the specified ID and updates the application state.
+ * @param {string} id - The ID of the recipe to load.
+ * @throws {Error} If there is an error during the loading process.
+ */
 export const loadRecipe = async function (id) {
   try {
     const data = await AJAX(`${API_URL}/${id}?key=${KEY}`);
@@ -40,6 +61,10 @@ export const loadRecipe = async function (id) {
   }
 };
 
+/**
+ * Loads search results for the provided query and updates the application state.
+ * @param {string} query - The search query to load results for.
+ */
 export const loadSearchResults = async function (query) {
   try {
     state.search.query = query;
@@ -59,6 +84,11 @@ export const loadSearchResults = async function (query) {
   }
 };
 
+/**
+ * Gets a specific page of search results.
+ * @param {number} [page=state.search.currentPage] - The page number to retrieve.
+ * @returns {Object[]} - An array of search results for the specified page.
+ */
 export const getSearchResultsPage = function (page = state.search.currentPage) {
   state.search.currentPage = page;
   const start = (page - 1) * state.search.resultsPerPage;
@@ -66,20 +96,31 @@ export const getSearchResultsPage = function (page = state.search.currentPage) {
   return state.search.results.slice(start, end);
 };
 
+/**
+ * Updates the servings of the current recipe and adjusts ingredient quantities accordingly.
+ * @param {number} newServing - The new number of servings for the recipe.
+ */
 export const updateServings = function (newServing) {
-  // Update quantity for each ingrediant
+  // Update quantity for each ingredient
   state.recipe.ingredients.forEach(ing => {
     ing.quantity = (newServing / state.recipe.servings) * ing.quantity;
   });
 
-  // Update serving
+  // Update state
   state.recipe.servings = newServing;
 };
 
+/**
+ * Stores the bookmarks array in the local storage.
+ */
 const persistBookmarks = function () {
   localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
 };
 
+/**
+ * Adds a recipe to the bookmarks and stores it in local storage.
+ * @param {Object} recipe - The recipe to add to bookmarks.
+ */
 export const addBookmark = function (recipe) {
   // Add bookmark to bookmarks[]
   state.bookmarks.push(recipe);
@@ -91,6 +132,10 @@ export const addBookmark = function (recipe) {
   persistBookmarks();
 };
 
+/**
+ * Deletes a bookmarked recipe with the specified ID and updates the bookmarks array in local storage.
+ * @param {string} id - The ID of the recipe to delete from bookmarks.
+ */
 export const deleteBookmark = function (id) {
   // Remove recipe from bookmarks[]
   const index = state.bookmarks.findIndex(rec => rec.id === id);
@@ -103,6 +148,11 @@ export const deleteBookmark = function (id) {
   persistBookmarks();
 };
 
+/**
+ * Adds a new recipe to the application state and bookmarks it.
+ * @param {Array} newRecipe - The data for the new recipe.
+ * @throws {Error} If there is an error during the creation and addition of the new recipe.
+ */
 export const addNewRecipe = async function (newRecipe) {
   try {
     // Format ingredients
@@ -142,6 +192,9 @@ export const addNewRecipe = async function (newRecipe) {
   }
 };
 
+/**
+ * Initializes the application by retrieving bookmarks from local storage (if available).
+ */
 const init = function () {
   const storage = localStorage.getItem('bookmarks');
   if (storage) state.bookmarks = JSON.parse(storage);

@@ -1,10 +1,18 @@
 import View from './View.js';
 import icons from 'url:../../img/icons.svg'; // icons
 
+/**
+ * Contains members common to resultsView and bookmarksView
+ */
 class PreviewView extends View {
   _parentElement = '';
 
+  /**
+   * Generate a list item for resultsView and bookmarksView
+   * @returns {string} List item Markup
+   */
   _generateMarkup() {
+    // Get the ID from the URL hash
     const id = window.location.hash.slice(1);
 
     return `

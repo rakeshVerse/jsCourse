@@ -1,9 +1,16 @@
 import View from './View.js';
 import icons from 'url:../../img/icons.svg'; // icons
 
+/**
+ * Represents the view responsible for displaying Pagination for ResultsView.
+ */
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  /**
+   * Generates pagination button(s) based on total search results
+   * @returns {string} Pagination button(s) based
+   */
   _generateMarkup() {
     const totPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
@@ -29,10 +36,15 @@ class PaginationView extends View {
       return `${this._generateMarkupButtonPrev(prevPage)} ${this._generateMarkupButtonNext(nextPage)}`;
     }
 
-    // Page 1 & no other pages
+    // Page 1 & no other pages -> don't show any buttons
     return ``;
   }
 
+  /**
+   *
+   * @param {*} prev
+   * @returns
+   */
   _generateMarkupButtonPrev(prev) {
     return `
       <button class="btn--inline pagination__btn--prev" data-goto="${prev}">
@@ -54,6 +66,10 @@ class PaginationView extends View {
       </button>`;
   }
 
+  /**
+   * Adds an event listner to the Pagination buttons
+   * @param {Function} handler The callback function to be executed when Pagination button is clicked
+   */
   addHandlerPagination(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--inline');

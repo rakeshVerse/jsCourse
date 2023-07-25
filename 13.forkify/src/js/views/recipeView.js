@@ -2,11 +2,18 @@ import View from './View.js';
 import icons from 'url:../../img/icons.svg'; // icons
 import { Fraction } from 'fractional';
 
+/**
+ * Represents the view responsible for displaying the recipe.
+ */
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
   _error = `We could not find that recipe. Please try another one!`;
   _message;
 
+  /**
+   * Generates markup for displaying recipe based on provided data.
+   * @returns {string} Markup for displaying recipe
+   */
   _generateMarkup() {
     return `
       <figure class="recipe__fig">
@@ -98,6 +105,11 @@ class RecipeView extends View {
       </div>`;
   }
 
+  /**
+   * Generates markup for displaying an ingredient
+   * @param {Object} ingredient An Object contains ingredient, unit and quantity
+   * @returns {string} Markup for displaying an ingredient
+   */
   _generateMarkupIngredients(ingredient) {
     return `
       <li class="recipe__ingredient">
@@ -116,12 +128,20 @@ class RecipeView extends View {
       </li>`;
   }
 
-  // Recipe Publisher
+  /**
+   * Adds an event listener to the window to handle hashchange and load events
+   * The 'handler' function acts as a Subscriber in the Controller component.
+   * @param {Function} handler The callback function to be executed when window loads or URL hash changes
+   */
   addHandlerRender(handler) {
-    // Show recipe on hashchange and page load
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
+  /**
+   * Adds an event listener to the Update servings buttons
+   * The 'handler' function acts as a Subscriber in the Controller component.
+   * @param {Function} handler The callback function to be executed when Update servings buttons are clicked
+   */
   addHandlerUpdateServings(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--update-servings');
@@ -132,6 +152,10 @@ class RecipeView extends View {
     });
   }
 
+  /**
+   * Adds an event listener to the bookmark button to handle adding/removing bookmark.
+   * @param {Function} handler The callback function to be executed when the bookmark button is clicked
+   */
   addHandlerBookmark(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--bookmark');
