@@ -2,7 +2,7 @@
   "name": "forkify",
   "version": "1.0.0",
   "description": "Recipe Book",
-  "main": "index.js",
+  "main": "public/index.js",
   "source": "index.html",
   "scripts": {
     "start": "parcel",
