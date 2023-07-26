@@ -10,23 +10,23 @@
 // DIFFERENT DATA! Contains movement dates, currency and locale
 
 const account1 = {
-  owner: 'John Smith',
+  owner: 'Jatinder Sharma',
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 
   movementsDates: [
-    '2019-11-18T21:31:17.178Z',
-    '2019-12-23T07:42:02.383Z',
-    '2020-01-28T09:15:04.904Z',
-    '2020-04-01T10:17:24.185Z',
-    '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2023-11-18T21:31:17.178Z',
+    '2023-12-23T07:42:02.383Z',
+    '2023-01-28T09:15:04.904Z',
+    '2023-04-01T10:17:24.185Z',
+    '2023-07-15T10:51:36.790Z',
+    '2023-07-20T23:36:17.929Z',
+    '2023-07-25T17:01:17.194Z',
+    '2023-07-26T14:11:59.604Z',
   ],
-  currency: 'EUR',
-  locale: 'pt-PT', // de-DE
+  currency: 'INR',
+  locale: 'hi-IN', // de-DE
 };
 
 const account2 = {
@@ -81,19 +81,36 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const formatDate = (date, locale) => {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs((date1 - date2) / 86400000));
+
+  const dateDiff = calcDaysPassed(new Date(), date);
+
+  if (dateDiff === 0) return 'Today';
+  if (dateDiff === 1) return 'Yesterday';
+  if (dateDiff < 7) return `${dateDiff} Days ago`;
+  return new Intl.DateTimeFormat(locale).format(date);
+};
+
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
+    const date = new Date(acc.movementsDates[i]);
+    const showDate = formatDate(date, acc.locale);
+
+    // prettier-ignore
     const html = `
       <div class="movements__row">
-        <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div>
+        <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+        <div class="movements__date">${showDate}</div>
         <div class="movements__value">${mov}€</div>
       </div>
     `;
@@ -142,7 +159,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -162,7 +179,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
-  console.log(currentAccount);
+  // console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     // Display UI and message
@@ -170,6 +187,18 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    // Show current date and time
+    const now = new Date();
+    const options = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    };
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -244,10 +273,21 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+// Using % operator to paint alternate rows
+labelBalance.addEventListener('click', function () {
+  const ui = document.querySelectorAll('.movements__row');
+  console.log(ui);
+  ui.forEach((row, i) =>
+    i % 2 === 0
+      ? (row.style.backgroundColor = '#fefae0')
+      : (row.style.backgroundColor = '#faedcd')
+  );
+});
