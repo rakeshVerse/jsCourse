@@ -55,6 +55,7 @@ const accounts = [account1, account2];
 // Elements
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
+const labelTime = document.querySelector('.time');
 const labelBalance = document.querySelector('.balance__value');
 const labelSumIn = document.querySelector('.summary__value--in');
 const labelSumOut = document.querySelector('.summary__value--out');
@@ -190,37 +191,85 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogoutTimer = () => {
+  const tick = () => {
+    // Calculate minutes and seconds
+    const minutes = String(Math.trunc(time / 60)).padStart(2, 0);
+    const seconds = String(Math.trunc(time % 60)).padStart(2, 0);
+
+    // In each call, print the remaining time to UI
+    labelTimer.textContent = `${minutes}:${seconds}`;
+
+    // When 0s, stop timer and log out
+    if (time === 0) {
+      // Stop timer & Log out
+      clearInterval(logOutTimer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+
+    // Decrease 1s
+    time--;
+  };
+
+  let time = 25; // Set logout time to 5 mins
+  tick();
+  return setInterval(tick, 1000);
+};
+
+const resetLogOutTimer = () => {
+  clearInterval(logOutTimer);
+  logOutTimer = startLogoutTimer();
+};
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
 
+let currentAccount;
+let timeInterval;
+let logOutTimer;
 btnLogin.addEventListener('click', function (e) {
-  // Prevent form from submitting
   e.preventDefault();
 
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
-  // console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Clear time interval
+    if (timeInterval) clearInterval(timeInterval);
+
     // Display UI and message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
 
-    // Show current date and time
-    const now = new Date();
-    const options = {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-    };
+    // Show current date
     labelDate.textContent = new Intl.DateTimeFormat(
-      currentAccount.locale,
-      options
-    ).format(now);
+      currentAccount.locale
+    ).format(new Date());
+
+    // Show current time
+    const currTime = () => {
+      const options = {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZoneName: 'short',
+      };
+
+      labelTime.textContent = new Intl.DateTimeFormat(
+        currentAccount.locale,
+        options
+      ).format(new Date());
+    };
+
+    currTime(); // display time immediately
+    timeInterval = setInterval(currTime, 1000); // update time every second
+
+    // Show logout timer
+    logOutTimer && clearInterval(logOutTimer);
+    logOutTimer = startLogoutTimer();
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -247,10 +296,15 @@ btnTransfer.addEventListener('click', function (e) {
   ) {
     // Doing the transfer
     currentAccount.movements.push(-amount);
+    currentAccount.movementsDates.push(new Date().toISOString());
     receiverAcc.movements.push(amount);
+    receiverAcc.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset logout timer
+    resetLogOutTimer();
   }
 });
 
@@ -262,9 +316,13 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
     updateUI(currentAccount);
+
+    // Reset logout timer
+    resetLogOutTimer();
   }
   inputLoanAmount.value = '';
 });
