@@ -8,17 +8,17 @@
 const rest = new Map();
 
 // Add items using set()
-rest.set("name", "Classico Italiano"); // string key
-rest.set(1, "Firenze, Italy"); // number key
+rest.set('name', 'Classico Italiano'); // string key
+rest.set(1, 'Firenze, Italy'); // number key
 
 // Method chaining: set() returns the updated Map so we can chain multiple set methods to add items in Map
-console.log(rest.set(2, "Lisbon, Portugal")); // returns updated Map -> Map(3) {size: 3, name => Classico Italiano, 1 => Firenze, Italy, 2 => Lisbon, Portugal}
+console.log(rest.set(2, 'Lisbon, Portugal')); // returns updated Map -> Map(3) {size: 3, name => Classico Italiano, 1 => Firenze, Italy, 2 => Lisbon, Portugal}
 rest
-  .set("categories", ["Italian", "Pizzeria", "Vegetarian", "Organic"])
-  .set("open", 11)
-  .set("close", 23)
-  .set(true, "We are open :D")
-  .set(false, "We are closed :(");
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :D')
+  .set(false, 'We are closed :(');
 
 console.log(rest);
 /** -> Map(8) {
@@ -33,12 +33,12 @@ console.log(rest);
 } */
 
 // Read Map items using get()
-console.log(rest.get("categories")); // -> [ 'Italian', 'Pizzeria', 'Vegetarian', 'Organic' ]
+console.log(rest.get('categories')); // -> [ 'Italian', 'Pizzeria', 'Vegetarian', 'Organic' ]
 
 // Complex example: check if restaurant open or closed
 const time = 20; // 8pm
 // (time > rest.get("open") && time < rest.get("close")) returns true or flase
-console.log(rest.get(time > rest.get("open") && time < rest.get("close"))); // computes to rest.get(true) -> We are open :D
+console.log(rest.get(time > rest.get('open') && time < rest.get('close'))); // computes to rest.get(true) -> We are open :D
 
 // Check if Map has key or not
 console.log(rest.has(2)); // -> true
@@ -57,7 +57,7 @@ console.log(rest.size); // -> 7
 
 // Array as key
 const arr = [1, 2];
-rest.set(arr, "Test");
+rest.set(arr, 'Test');
 console.log(rest);
 /** -> Map(8) {
   'name' => 'Classico Italiano',
@@ -77,17 +77,17 @@ console.log(rest.get(arr)); // -> Test
 // rest.set(document.querySelector("h1"), "Heading"); // get h1 from the page and set it as a Key
 
 // Create Map
-// Another way of creating Maps is passing an array or array to Map()
+// Another way of creating Maps is passing an array of arrays to Map()
 // This way is better when creating a Map from scratch as doing so with set() is cumbersome
 // When adding elements programmaticlly to a Map then set() should be used
 const question = new Map([
-  ["question", "What is the best programming language in the world?"],
-  [1, "C"],
-  [2, "Java"],
-  [3, "JavaScript"],
-  ["correct", 3],
-  [true, "Correct 🎉"],
-  [false, "Try again!"],
+  ['question', 'What is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Correct 🎉'],
+  [false, 'Try again!'],
 ]);
 console.log(question); /** ->
 Map(7) {
@@ -135,11 +135,11 @@ Map(3) {
 
 // Quiz App: Check if user's answer is correct or not
 
-console.log(question.get("question"));
+console.log(question.get('question'));
 // loop over Map to show options to select from
 for (const [key, value] of question) {
   // select only numeric keys
-  if (typeof key === "number") console.log(`Answer ${key}: ${value}`);
+  if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
 }
 
 // get user answer
@@ -147,7 +147,7 @@ const answer = 3;
 // const answer = Number(prompt("Enter your answer"));
 
 // if answer is 3 then correct answer
-console.log(question.get(question.get("correct") === answer));
+console.log(question.get(question.get('correct') === answer));
 
 // Convert Map to Array
 console.log([...question]); // returns an array of arrays
