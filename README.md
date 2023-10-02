@@ -59,3 +59,15 @@
 - split(), join()
 - padStart(), padEnd()
 - repeat()
+
+#### Functions
+
+- default parameteres
+- value vs reference
+- first class functions
+- higher order functions
+- callbacks
+- function returning another function
+- function methods
+- IIFE
+- closures
