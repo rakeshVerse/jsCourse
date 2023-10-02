@@ -50,6 +50,7 @@ a(); // -> Hello, Mike
 
 // WITH EVENT LISTENER
 // Here, event listener function is a child function which retain access to 'body' variable even after
+// IIFE is poped out of call stack when the 'click' event is fired
 (function () {
   const body = document.body;
   body.style.backgroundColor = 'black';

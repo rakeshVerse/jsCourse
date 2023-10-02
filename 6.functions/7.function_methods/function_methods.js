@@ -52,7 +52,7 @@ order('Mark', 12); // ERROR
 // CALL METHOD
 // To solve above problem, we need to explicitly tell 'this' keyword where to point to
 // This can be done by calling call() on order()
-// Syntax: function_name.call(tell-this-where-to-point-to, rest-of-the-comma-seperated-attributes)
+// Syntax: function_name.call(tell-this-where-to-point-to, rest-of-the-comma-seperated-arguments)
 // call() firsts points 'this' keyword to given reference (object) then calls the function
 
 // place order for pasta
@@ -84,7 +84,7 @@ console.log(burger.orders); // -> [ { orderId: 'BUR2', firstName: 'Peter' } ]
 
 // APPLY METHOD
 // apply() is similar to call() except it accepts two arguments:
-// 1st: this pointer, and 2nd: an array of attribures
+// 1st: this pointer, and 2nd: an array of arguments
 // Syntax: function.apply(tell-this-where-to-point-to, [array of arguments])
 
 // place order using apply()
