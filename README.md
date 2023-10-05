@@ -71,3 +71,21 @@
 - function methods
 - IIFE
 - closures
+
+#### Arrays
+
+- Array methods: slice, splice, reverse, concat, join, at
+- forEach
+
+#### Data Transformation
+
+- map
+- filter
+- reduce
+- find
+- findIndex
+- some
+- every
+- flat
+- sort
+
