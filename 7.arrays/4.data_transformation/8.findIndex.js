@@ -8,3 +8,8 @@
  *
  * Syntax: array.findIndex(function(item, index){})
  */
+
+const nums = [23, 3, -3, 0, -7];
+
+const index = nums.findIndex(num => num < 0);
+console.log(index);
