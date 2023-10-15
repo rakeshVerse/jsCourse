@@ -76,6 +76,7 @@
 
 - Array methods: slice, splice, reverse, concat, join, at
 - forEach
+- create arrays
 
 #### Data Transformation
 
@@ -86,6 +87,5 @@
 - findIndex
 - some
 - every
-- flat
+- flat & flatMap
 - sort
-
