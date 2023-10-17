@@ -36,6 +36,25 @@ const totalDepositBalance = accounts
   .reduce((sum, amt) => sum + amt, 0);
 console.log(totalDepositBalance); // -> 25180
 
+// using forEach()
+let totalDeposit = 0;
+accounts.forEach(acc => {
+  acc.movements.forEach(amt => {
+    if (amt > 0) totalDeposit += amt;
+  });
+});
+console.log(totalDeposit); // 25180
+
+// using reduce()
+const totDepBal = accounts.reduce((bal, acc) => {
+  const dep = acc.movements.reduce(
+    (tot, amt) => (amt > 0 ? tot + amt : tot),
+    0
+  );
+  return bal + dep;
+}, 0);
+console.log(totDepBal); // 25180
+
 // Exercise II. How many deposits there have been in the bank with at least 1000 USD
 // Solution I:
 // get all transactions in one array
@@ -53,6 +72,22 @@ const numDeposit = accounts
   .flatMap(acc => acc.movements)
   .reduce((count, deposit) => (deposit >= 1000 ? count + 1 : count), 0);
 console.log(numDeposit); // -> 6
+
+// using forEach
+let depositOver1k = 0;
+accounts.forEach(acc => {
+  acc.movements.forEach(amt => (amt >= 1000 ? depositOver1k++ : depositOver1k));
+});
+console.log(depositOver1k); // 6
+
+// using reduce()
+const depOver1k = accounts.reduce((depCnt, acc) => {
+  return (
+    depCnt +
+    acc.movements.reduce((cnt, amt) => (amt >= 1000 ? (cnt += 1) : cnt), 0)
+  );
+}, 0);
+console.log(depOver1k); // 6
 
 // Example III. Create an object that contains the sum of the deposits and the withdrawls
 // [200, 450, -400, 3000, -650, -130, 70, 1300, 5000, 3400, -150, -790, -3210, -1000, 8500, -30, 200, -200, 340, -300, -20, 50, 400, -460, 430, 1000, 700, 50, 90]
