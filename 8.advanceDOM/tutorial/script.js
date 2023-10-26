@@ -25,7 +25,7 @@ document.getElementById('section--1'); // selects element by specified ID
 const allButtons = document.getElementsByTagName('button'); // selects all buttons
 console.log(allButtons);
 
-// selects al the elements that shares specified class name
+// selects all the elements that shares specified class name
 // it also returns an HTMLCollection object
 console.log(document.getElementsByClassName('btn')); // selects all the buttons
 
@@ -139,7 +139,7 @@ console.log(img.classList.contains('class1')); // check if element contains spec
  */
 
 // getBoundingClientRect()
-// eturns the size and position of an element relative to the viewport (the visible area of a web page).
+// returns the size and position of an element relative to the viewport (the visible area of a web page).
 // It provides information about the element's dimensions (width and height) and its position (top, right, bottom, and left)
 // with respect to the top - left corner of the viewport.
 const rect = img.getBoundingClientRect();
@@ -174,6 +174,7 @@ console.log(rect.left); // Distance from the left edge of the viewport to the le
 // New way:
 // No need to calculate coordinates just use scrollIntoView() on element where you want to scroll to
 // element.scrollIntoView({ behavior: 'smooth' })
+
 // Scroll to feature
 const featureSec = document.querySelectorAll('.sec-head')[0];
 allButtons[1].addEventListener('click', function (e) {
@@ -256,15 +257,20 @@ setTimeout(() => heading.removeEventListener('mouseenter', showAlert), 3000);
 // of addEventListener().
 
 // Example of Event Propogation
-// When click on 1st list item: event fires for all three elements
-// When click on list container (ul): event fires for container and navbar
-// When click on nav bar: event fires for nav bar only
+// When click on 1st list item: event fires for all three elements: link, link container and the navbar
+// When click on list container (ul): event fires for link container and navbar
+// When click on navbar: event fires for navbar only
 
-// // Generate random colors
-// const randomInt = (min, max) =>
-//   Math.floor(Math.random() * (max - min + 1) + min);
-// const randomColor = () =>
-//   `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+// This is because event propogates from child to parent in bubbuling phase.
+// So, event though we are clicking the link only, link container and navbar events are also firing.
+// Here, target element (e.target) is the 'link' itself in all the three event handlers as 'link' is where
+// the click event has occured.
+
+// Generate random colors
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+const randomColor = () =>
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
 
 // // 1st link
 // document
@@ -316,7 +322,7 @@ setTimeout(() => heading.removeEventListener('mouseenter', showAlert), 3000);
 // Now, event listener listens to all the items inside 'ul'
 document.querySelector('.nav-links').addEventListener('click', function (e) {
   e.preventDefault();
-
+  console.log(e.target);
   // Matching Strategy (scroll only when clicked on the link, exclude the parent)
   if (e.target.classList.contains('nav-link')) {
     document
@@ -402,18 +408,18 @@ tabBtnContainer.addEventListener('click', function (e) {
 // Only way to pass additional arguments is using bind()
 // In bind, we can pass only one item, so incase of multiple arguments use array or object
 
-// Example - Animate menu: When hover over one menu other fades out
+// Example - Animate menu: When hover over one menu others fades out
 
 const hoverLinkEffect = function (e) {
   if (e.target.classList.contains('nav-link')) {
-    // if link clicked
+    // when hover on specific link
     const link = e.target;
     const linkSiblings = link.closest('.nav').querySelectorAll('.nav-link'); // select all siblings
     const logo = link.closest('.nav').querySelector('.logo');
 
-    // for all links set opacity except the clicked link
+    // for all links set opacity except the hovered link
     linkSiblings.forEach(l => {
-      if (l !== e.target) l.style.opacity = this;
+      if (l !== link) l.style.opacity = this;
     });
     logo.style.opacity = this;
   }
@@ -471,12 +477,12 @@ const callback = (entries, observer) => {
   });
 };
 
-// options object has three options:
-// root, can be an ancestor or viewport
-// rootMargin
-// and threshold, decides when to invoke the callback, ranges from .0 to 1 (i.e. 0% - 100%)
+// Options object has three options:
+// - root: can be an ancestor or viewport
+// - rootMargin: Margin around the root.
+// - threshold, decides when to invoke the callback, ranges from .0 to 1 (i.e. 0% - 100%)
 // To invoke callback when taget crosses 10% of viewport/ancestor (in & out), the threshold will be 0.1
-// threshold also accepts an array of percentage like [0, 0.2, 0.5]
+// If you want the callback to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1]
 
 const navHeight = nav.getBoundingClientRect().height;
 const options = {
@@ -560,8 +566,8 @@ window.addEventListener('load', function (e) {
 });
 
 // when user leaves the site i.e. clicking on close tab button
-window.addEventListener('beforeunload', function (e) {
-  e.preventDefault();
-  console.log(e);
-  e.returnValue = '';
-});
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
