@@ -89,3 +89,22 @@
 - every
 - flat & flatMap
 - sort
+
+#### Advance DOM
+
+- DOM API Organization
+- Selecting elements
+- Create, Insert & Delete elements
+- Manupulating CSS, Attributes and Classes
+- Smooth scroll: scroll to specific section
+- Event bubbling and capturing
+- Event delegation
+- DOM Traversing
+- Tabs
+- Passing arguments to event handlers (Animate menu)
+- Intersection Observer API
+  - Sticky Navbar
+  - Section reveal
+  - Lazy loading
+- DOM events lifecycle
+- Defer and Async script loading
