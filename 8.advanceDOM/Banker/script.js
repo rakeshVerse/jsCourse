@@ -170,7 +170,7 @@ const secObserver = new IntersectionObserver(revealSec, {
 const allSections = document.querySelectorAll('.section');
 allSections.forEach(sec => {
   secObserver.observe(sec); // add target
-  // sec.classList.add('section--hidden'); // hide section
+  sec.classList.add('section--hidden'); // hide section
 });
 
 // ///////////////////////////////////////////////////////////
@@ -230,7 +230,6 @@ const slider = () => {
   const activateDot = slide => {
     // remove active dot from other dots & add to slide
     const preDot = dots.querySelector('.dots__dot--active');
-
     preDot?.classList.remove('dots__dot--active');
 
     document
