@@ -106,5 +106,6 @@
   - Sticky Navbar
   - Section reveal
   - Lazy loading
+- Slider
 - DOM events lifecycle
-- Defer and Async script loading
+- Regular, Defer and Async script loading
