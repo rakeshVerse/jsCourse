@@ -125,3 +125,5 @@
   - constructor function
   - ES6 classes
   - Object.create()
+- Encapsulation: undersore convension, new class field (private members using #)
+- Chaining methods
