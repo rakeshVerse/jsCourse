@@ -109,3 +109,19 @@
 - Slider
 - DOM events lifecycle
 - Regular, Defer and Async script loading
+
+#### Object oriented programming
+
+- Three ways to simulate OOP: Constructor function, ES6 classes and Object.create()
+- Constructor function
+- Prototype
+- Prototypal inheritance / Object delegation
+- Prototype chain
+- ES6 classes
+- getter & setter
+- Static methods
+- Object.create()
+- Inheritance using
+  - constructor function
+  - ES6 classes
+  - Object.create()
