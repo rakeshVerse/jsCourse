@@ -23,6 +23,7 @@ const PersonProto = {
 // PersonProto is now prototype of mark
 const mark = Object.create(PersonProto);
 console.log(mark); // -> {}
+console.log(mark.__proto__); // -> {clacAge: ƒ, init: ƒ}
 
 // setting property manually
 mark.firstName = 'Mark';

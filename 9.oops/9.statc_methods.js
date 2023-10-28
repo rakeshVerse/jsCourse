@@ -1,5 +1,5 @@
 /**
- * When can call various methods on arrays like indexOf, forEach, map, etc.
+ * We can call various methods on arrays like indexOf, forEach, map, etc.
  * This is because these methods are defined in Array.prototype property.
  *
  * However, we can't call from() method on an array.

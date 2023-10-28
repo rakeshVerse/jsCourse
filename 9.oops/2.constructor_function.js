@@ -6,7 +6,7 @@
  * 'new' keyword does four things:
  * - creates an empty object {}
  * - set the empty object to 'this' keyword
- * - link the empty object ot Prototype
+ * - link the empty object to Prototype
  * - auto return object/this when function is called
  *
  *
