@@ -41,6 +41,7 @@ class Account {
 
   // In case, anybody want to read protected members e.g. transactions, we can have a function in Public interface for that
   getTransactions() {
+    console.log(this.__proto__);
     return this.#transactions;
   }
 
@@ -57,7 +58,7 @@ class Account {
 }
 
 const mike = new Account('Mike', 'INR', 2222);
-
+console.log(mike.__proto__);
 mike.deposit(120);
 mike.deposit(1280);
 mike.deposit(156);
@@ -68,4 +69,4 @@ mike.requestLoan(285);
 console.log(...mike.getTransactions()); // -> 120 1280 156 1800 -500 285
 
 // console.log(mike.#transactions); // -> Private field '#transactions' must be declared in an enclosing class
-// console.log(mike.#approveLoan(250)); // ->
+// console.log(mike.#approveLoan(250)); // -> Private field '#approveLoan' must be declared in an enclosing class
