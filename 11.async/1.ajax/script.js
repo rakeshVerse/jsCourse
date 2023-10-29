@@ -9,7 +9,7 @@ const countriesContainer = document.querySelector('.countries');
 
 // Create an XmlHttpRequest Object
 // Open request with Request method & API URL
-// Send the request (This is asynchronous. Once response arrives from the API .open() will emmit a load event)
+// Send the request (This is asynchronous. Once response arrives from the API XmlHttpRequest object will emmit a load event)
 // Listen to load event and attach a Callback
 
 const getContryInfo = function (country) {
@@ -18,11 +18,9 @@ const getContryInfo = function (country) {
   request.send();
 
   request.addEventListener('load', function () {
-    const [country] = JSON.parse(this.response);
+    const [country] = JSON.parse(this.response); // JSON.parse converts string/text into JS object
     const nativeNames = Object.values(country.name.nativeName);
-    const languages = Object.values(country.languages)
-      .map(lan => lan)
-      .join(', ');
+    const languages = Object.values(country.languages).join(', ');
     const currNameKey = Object.keys(country.currencies)[0];
 
     const html = `
