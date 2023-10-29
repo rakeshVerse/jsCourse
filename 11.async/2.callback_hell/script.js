@@ -9,8 +9,7 @@ const countriesContainer = document.querySelector('.countries');
 
 const renderCountry = (country, className = '') => {
   const nativeNames = Object.values(country.name.nativeName);
-  // prettier-ignore
-  const languages = Object.values(country.languages).map(lan => lan).join(', ');
+  const languages = Object.values(country.languages).join(', ');
   const [curr] = Object.values(country.currencies);
 
   // prettier-ignore
