@@ -127,3 +127,22 @@
   - Object.create()
 - Encapsulation: undersore convension, new class field (private members using #)
 - Chaining methods
+
+#### Asynchronous JS: AJAX, Promises and Async/Await
+
+- Async myths
+- AJAX - Get countries
+- Callback hell
+- Promises
+  - Promise lifecycle
+  - Consuming promise
+  - Chaining promise
+  - Rejected promise
+  - Throwing errors
+  - Refactoring
+  - Event loop
+  - JavaScript runtime
+  - Building promises
+  - Promisifying setTimeout, geolocation, load event
+  - Async await
+  - Parallel promises
