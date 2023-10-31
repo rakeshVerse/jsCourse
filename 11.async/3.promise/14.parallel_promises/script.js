@@ -2,7 +2,7 @@
 
 // RUNNING PROMISES IN PARALLEL
 
-// Whenever you have a situation in which you have to do multiple Async operation at the same thime
+// Whenever you have a situation in which you have to do multiple Async operation at the same time
 // and these operations are not dependent on one another
 // then you should always run them in PARALLEL using PROMISE COMBINATOR: Promise.all([array_of_promises])
 // Promise.all() will run all the promises provinded in parameter Array in Parallel
