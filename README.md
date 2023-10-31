@@ -144,5 +144,6 @@
   - JavaScript runtime
   - Building promises
   - Promisifying setTimeout, geolocation, load event
-  - Async await
+  - Async/Await
   - Parallel promises
+  - Promisifying load event (image load) using Async/Await
