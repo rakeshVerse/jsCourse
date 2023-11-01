@@ -147,3 +147,26 @@
   - Async/Await
   - Parallel promises
   - Promisifying load event (image load) using Async/Await
+
+#### Modern JS Developements and Tools
+
+- ES6 Modules
+- Importing Exporting modules
+- Top level await
+- Module pattern
+- commonJS
+- NPM
+- Parcel
+- Clean code (Functional programming)
+
+#### Numbers, Dates and Intl
+
+#### JS Internals
+
+- JS defination
+- JS engine, JIT compilation, JS runtime
+- Execution context, Call stack
+- Scope: Scope chain, scope types, scope chain vs call stack
+- Hoisting
+- This
+- Primitives vs reference
